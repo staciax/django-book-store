@@ -6,6 +6,7 @@ const config = {
   singleQuote: true,
   printWidth: 120,
   bracketSpacing: true,
+  plugins: ['prettier-plugin-tailwindcss'],
 };
 
 module.exports = config;

@@ -3,7 +3,7 @@
 {% load store %}
 <!--  -->
 {% block sub_content %}
-<div class="w-full min-h-[400px]">
+<div class="min-h-[400px] w-full">
   <form action="{% url 'store:update-account' %}" method="post">
     {% csrf_token %}
     <div class="grid grid-cols-2 gap-4">
