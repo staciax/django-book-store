@@ -1,0 +1,29 @@
+{
+  "name": "aquarius",
+  "scripts": {
+    "dev": "cross-env NODE_ENV=development npx tailwindcss --postcss -i ./store/static/store/css/style.css -o ./store/static/store/css/dist/style.css --watch",
+    "build": "npm run build:clean && npm run build:tailwind",
+    "build:clean": "npx rimraf ./static/store/css/dist",
+    "build:tailwind": "cross-env NODE_ENV=production npx tailwindcss --postcss -i ./static/store/css/style.css -o ./static/store/css/dist/style.css --minify",
+    "check": "npx prettier --check .",
+    "format": "npx prettier --write ."
+  },
+  "devDependencies": {
+    "@tailwindcss/forms": "^0.5.7",
+    "@tailwindcss/typography": "^0.5.12",
+    "autoprefixer": "^10.4.19",
+    "cross-env": "^7.0.3",
+    "cssnano": "^6.1.2",
+    "eslint": "^9.0.0",
+    "eslint-config-prettier": "^9.1.0",
+    "postcss": "^8.4.38",
+    "postcss-import": "^16.1.0",
+    "postcss-nesting": "^12.1.1",
+    "prettier": "^3.2.5",
+    "prettier-plugin-tailwindcss": "^0.5.14",
+    "rimraf": "^5.0.5",
+    "tailwindcss": "^3.4.3"
+  },
+  "version": "1.0.0",
+  "author": "staciax"
+}

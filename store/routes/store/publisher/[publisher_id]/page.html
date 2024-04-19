@@ -1,0 +1,25 @@
+{% extends "store/layout.html" %}
+<!--  -->
+{% load store %}
+<!--  -->
+{% block content %}
+
+<section class="bg-gray-100 py-8">
+  <input id="search" type="hidden" value="{{search}}" />
+  <div class="w-full rounded-md p-8 shadow">
+    <div>
+      <h3 class="text-lg">สำนักพิมพ์: <span>{{publisher.name}}</span></h3>
+    </div>
+    <div class="mt-4">
+      <div class="grid grid-cols-6 gap-4">
+        {% for product in publisher.product_set.all %}
+        <!--  -->
+        {% product_card product csrf_token %}
+        <!--  -->
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock content %}

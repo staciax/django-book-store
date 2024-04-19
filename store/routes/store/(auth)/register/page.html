@@ -1,0 +1,42 @@
+{% extends "store/(auth)/layout.html" %}
+<!--  -->
+{% load store %}
+<!--  -->
+{% block sub_content %}
+
+<div class="flex items-center justify-center">
+  <a class="text-3xl">AQUARIUS</a>
+</div>
+<form class="flex flex-col" method="post">
+  {% csrf_token %}
+
+  <!--  -->
+  {% text_field "ชื่อ" type="text" id="first_name" name="first_name" maxlength="128" %}
+
+  <!--  -->
+  {% text_field "นามสกุล" type="text" id="last_name" name="last_name" maxlength="128" %}
+
+  <!--  -->
+  {% text_field "อีเมล" type="email" id="email" name="email" maxlength="256" %}
+
+  <!--  -->
+  {% text_field "รหัสผ่าน" type="password" id="password1" name="password1" maxlength="256" %}
+
+  <!-- prettier-ignore -->
+  {% text_field "ยืนยันรหัสผ่าน" type="password" id="password2" name="password2" maxlength="256" autocomplete="new-password" %}
+
+  <div class="my-2"></div>
+
+  <div>{% button "สมัครสมาชิก" %}</div>
+
+  <div class="mt-4 flex flex-row items-center justify-center">
+    <h6 class="text-sm font-normal text-dark-primary">หากมีบัญชีผู้ใช้แล้ว</h6>
+    <a href="{% url 'store:login' %}" class="ml-1 text-sm font-normal text-primary">เข้าสู่ระบบ?</a>
+  </div>
+
+  {% if next %}
+  <input type="hidden" name="next" value="{{next}}" />
+  {% endif %}
+</form>
+
+{% endblock sub_content %}

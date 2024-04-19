@@ -1,0 +1,72 @@
+{% extends "store/account/layout.html" %}
+<!--  -->
+{% load static %}
+<!--  -->
+{% load store %}
+<!--  -->
+{% block sub_title %} ที่อยู่ของฉัน {% endblock sub_title %}
+<!--  -->
+{% block sub_content %}
+<!--  -->
+{% if addresses %}
+<div class="w-full min-h-[400px]">
+  <div class="mb-4 grid grid-cols-2 gap-4">
+    {% for address in addresses %}
+    <div>
+      <div class="rounded-t-lg border border-solid border-light-tertiary p-4">
+        <div>
+          <span class="font-light">{{address.full_name}}</span>
+        </div>
+        <div>
+          <span class="font-light"
+            >{{address.street_address}} {{address.district}} {{address.postal_code}}
+            <span>{{address.province}}</span>
+          </span>
+        </div>
+        <div>
+          <span class="font-light">{{address.phone_number}}</span>
+        </div>
+      </div>
+      <div class="flex justify-between rounded-b-lg border border-t-0 border-solid border-light-tertiary px-6 py-4">
+        <a
+          href="{{address.get_absolute_url}}"
+          class="flex items-center gap-2 text-primary transition duration-200 hover:text-gray-400"
+        >
+          <svg width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg" class="mr10">
+            <path
+              fill-rule="evenodd"
+              clip-rule="evenodd"
+              d="M11.4243 1.26895C12.4697 0.230664 14.1706 0.230664 15.216 1.26895C16.2613 2.30719 16.2613 3.9966 15.216 5.03493L3.97949 16.1951C3.85924 16.3145 3.69619 16.3816 3.52614 16.3816H0.641116C0.28706 16.3816 0 16.0965 0 15.7449V12.8794C0 12.7105 0.0675576 12.5486 0.187767 12.4291L11.4243 1.26895ZM3.15057 11.2875L5.12894 13.2524L11.5685 6.85666L9.5901 4.89172L3.15057 11.2875ZM3.26059 15.1081H1.28223V13.1432L2.2439 12.188L4.22227 14.153L3.26059 15.1081ZM12.4751 5.95602L14.3093 4.13435C14.5735 3.87189 14.719 3.52299 14.719 3.15189C14.719 2.78078 14.5735 2.43188 14.3093 2.16942C14.0451 1.90695 13.6939 1.76245 13.3202 1.76245C12.9465 1.76245 12.5952 1.90699 12.331 2.16942L10.4968 3.99113L12.4751 5.95602Z"
+              fill="#1895F5"
+            ></path>
+          </svg>
+          <span class="text-base font-light">แก้ไขที่อยู่</span>
+        </a>
+        <form action="{% url 'store:delete-address' address.id %}" method="post" name="delete-address-form">
+          {% csrf_token %}
+          <input type="submit" value="ลบ" class="cursor-pointer text-base font-light" />
+        </form>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+  <div>
+    <form action="{% url 'store:account-address' %}" method="post">
+      {% csrf_token %}
+      <div class="w-28">{% button "เพิ่มที่อยู่" font='font-light' disabled=address_is_full %}</div>
+    </form>
+  </div>
+</div>
+
+{% else %}
+<div class="min-h-[400px] flex items-center">
+  <form action="{% url 'store:account-address' %}" method="post">
+    {% csrf_token %}
+    <div class="w-full">{% button "เพิ่มที่อยู่การจัดส่ง" font='font-light' disabled=address_is_full %}</div>
+  </form>
+</div>
+{% endif %} {% endblock sub_content %}
+<!--  -->
+{% block scripts %}
+<script src="{% static 'store/js/address.js' %}"></script>
+{% endblock %}

@@ -1,0 +1,38 @@
+{% extends "store/layout.html" %}
+<!--  -->
+{% load store %}
+<!--  -->
+{% block content %}
+<div class="bg-gray-100 pb-8">
+  <div class="flex w-full flex-col gap-8">
+    <div class="overflow-hidden border shadow">
+      <a href="">
+        <img
+          src="https://via.placeholder.com/1200x500"
+          alt=""
+          width="1200"
+          height="500"
+          class="max-h-[500px] rounded-md object-cover object-top"
+        />
+      </a>
+    </div>
+    <div class="rounded-md border bg-white p-4 shadow">
+      <div>
+        <h2 class="text-center text-2xl">สินค้าแนะนำ</h2>
+      </div>
+      <ul class="w-full">
+        <li class="my-4 grid grid-cols-6 gap-2 gap-y-4 px-4">
+          {% for product in recommended_products %}
+          <!--  -->
+          {% comment %} {% include 'store/ui/product-card.html' %} {% endcomment %}
+          <!--  -->
+          {% product_card product csrf_token %}
+          <!--  -->
+          {% endfor %}
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+<!--  -->
+{% endblock content %}

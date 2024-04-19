@@ -1,0 +1,118 @@
+{% extends "store/layout.html" %}
+<!--  -->
+{% load static %}
+<!--  -->
+{% load humanize %}
+<!--  -->
+{% load store %}
+<!--  -->
+{% block content %}
+<!--  -->
+<!-- TODO: show all product images -->
+<!-- TODO: show product tags -->
+<input id="product-quantity" type="hidden" value="{{product.quantity}}" />
+<section class="bg-gray-100">
+  <div class="my-4 rounded-md bg-white p-12 shadow">
+    <div class="container flex flex-col justify-center gap-8">
+      <div class="flex flex-row justify-start gap-12">
+        <div>
+          <img
+            class="rounded-md"
+            src="{% get_media_prefix %}{{product.first_image.image}}"
+            alt="{{product.title}}"
+            width="300px"
+          />
+        </div>
+        <div class="flex flex-col">
+          <div>
+            <h3 class="text-2xl text-gray-700">{{product.title}}</h3>
+          </div>
+          <div class="mt-2 flex flex-row">
+            <p class="mr-2 font-normal">ผู้แต่ง:</p>
+            <a
+              href="{{product.author.first.get_absolute_url}}"
+              target="_blank"
+              class="text-base font-light text-gray-700 underline"
+              >{{product.author.first}}</a
+            >
+          </div>
+          <div class="mt-2 flex flex-row">
+            <p class="mr-2 font-normal">สำนักพิมพ์:</p>
+            <a
+              href="{{product.publisher.get_absolute_url}}"
+              target="_blank"
+              class="text-base font-light text-gray-700 underline"
+              >{{product.publisher}}</a
+            >
+          </div>
+          <div class="mt-2 flex flex-row">
+            <p class="mr-2 font-normal">ประเภท:</p>
+            <a
+              href="{{product.genre.get_absolute_url}}"
+              target="_blank"
+              class="text-base font-light text-gray-700 underline"
+              >{{product.genre}}</a
+            >
+          </div>
+          <div class="mt-4">
+            <span class="text-xl text-gray-500">฿{{product.price | intcomma}}</span>
+          </div>
+          <hr class="my-2" />
+          <div class="mt-2 flex flex-row items-center">
+            <label class="mr-6">จำนวน:</label>
+            <div class="flex flex-row rounded">
+              <button
+                id="subtrct-input-quantity"
+                class="min-w-10 rounded-l-lg border border-solid border-r-transparent text-primary transition duration-300 hover:border-r-transparent hover:bg-primary hover:text-white"
+              >
+                -
+              </button>
+              <button
+                id="input-quantity"
+                class="min-w-10 border border-solid text-primary transition duration-300 hover:bg-primary hover:text-white"
+              >
+                1
+              </button>
+              <button
+                id="increase-input-quantity"
+                class="min-w-10 rounded-r-lg border border-solid border-l-transparent text-primary transition duration-300 hover:border-l-transparent hover:bg-primary hover:text-white"
+              >
+                +
+              </button>
+            </div>
+            {% if product.quantity and product.quantity < 10 %}
+            <div class="ml-4">
+              <p class="text-sm font-light">เหลือสินค้าอยู่ {{product.quantity}} ชิ้น</p>
+            </div>
+            {% endif %}
+          </div>
+          <form class="mt-4" method="post" id="form">
+            {% csrf_token %}
+            <!--  -->
+            {% if product.quantity and product.is_available %}
+            <div class="w-[200px]">{% button "เพิ่มไปยังตะกร้า" %}</div>
+            {% else %}
+            <div class="w-[200px]">{% button "สินค้าหมด" disabled=True %}</div>
+            {% endif %}
+            <!-- quantity="{{product.quantity}}" -->
+            <input type="hidden" name="product" id="{{product.id}}" />
+          </form>
+        </div>
+      </div>
+      <div>
+        <div class="mt-2">
+          <p class="text-lg">รายละเอียด</p>
+        </div>
+        <div class="mt-2">
+          <p class="text-base font-light">{{product.description}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock content %}
+<!--  -->
+{% block scripts %}
+<script src="{% static 'store/js/product-detail.js' %}"></script>
+{% endblock %}

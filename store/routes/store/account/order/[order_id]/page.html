@@ -1,0 +1,121 @@
+{% extends "store/account/layout.html" %}
+<!--  -->
+{% load static %}
+<!--  -->
+{% load humanize %}
+<!--  -->
+{% load store %}
+<!--  -->
+{% block sub_title %} รายละเอียดคำสั่งซื้อ {% endblock sub_title %}
+<!--  -->
+{% block sub_content %}
+<div class="w-full">
+  <div class="mt-4 flex items-end justify-between">
+    <div>
+      <h6 class="text-sm font-light">คำสั่งซื้อ #{{order.id}}</h6>
+      <h6 class="text-sm font-light">วันที่สั่งซื้อ {{order.created_at}}</h6>
+    </div>
+    <h6 class="text-sm font-light">สถานะคำสั่งซื้อ {{order.status}}</h6>
+  </div>
+  <table class="mt-4 w-full table-auto border-separate rounded-md border">
+    <thead>
+      <thead>
+        <tr class="text-left">
+          <th class="border-b p-2">
+            <span class="ml-4 text-sm font-normal">สินค้า</span>
+          </th>
+          <th class="border-b p-2 text-center">
+            <span class="text-sm font-normal">ราคาต่อชิ้น</span>
+          </th>
+          <th class="border-b p-2 text-center">
+            <span class="text-sm font-normal">จำนวน</span>
+          </th>
+          <th class="border-b p-2 text-center">
+            <span class="text-sm font-normal">ราคารวม</span>
+          </th>
+        </tr>
+      </thead>
+    </thead>
+    <tbody>
+      {% for item in order.items.all %}
+      <tr class="transition duration-200">
+        <td class="border-b p-2">
+          <div class="ml-2 flex items-center gap-4">
+            <div class="w-10">
+              <a href="{{item.product.get_absolute_url}}">
+                <img
+                  src="{% get_media_prefix %}{{item.product.first_image}}"
+                  alt=""
+                  class="mx-auto rounded transition duration-300 hover:opacity-85 hover:shadow-md"
+                />
+              </a>
+            </div>
+            <a href="{{item.product.get_absolute_url}}">
+              <span class="text-[13px] font-light text-gray-600 transition duration-500 hover:underline"
+                >{{ item.product.title }}</span
+              >
+            </a>
+          </div>
+        </td>
+        <td class="border-b p-2 text-center">
+          <h6 class="text-[13px] font-light text-gray-600">฿{{ item.product.price | intcomma }}</h6>
+        </td>
+        <td class="border-b p-2 text-center">
+          <h6 class="text-[13px] font-light text-gray-600">{{item.quantity}}</h6>
+        </td>
+        <td class="border-b p-2 text-center">
+          <h6 class="text-[13px] font-normal text-gray-600">฿{{ item.sub_total|intcomma }}</h6>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+    <tfoot>
+      <tr class="font-semibold text-gray-600">
+        <td class="p-2 text-right" colspan="3">
+          <span class="ml-4 text-sm font-normal">ราคารวม</span>
+        </td>
+        <td class="p-2 text-center">
+          <span class="text-sm font-medium text-gray-600">฿{{order.get_total | intcomma}}</span>
+        </td>
+      </tr>
+      <tr class="font-semibold text-gray-600">
+        <td class="p-2 text-right" colspan="3">
+          <span class="ml-4 text-[13px] font-normal">ค่าจัดส่ง</span>
+        </td>
+        <td class="p-2 text-center">
+          <span class="text-[13px] font-medium text-gray-600">฿{{ shipping|intcomma}}</span>
+        </td>
+      </tr>
+      <tr class="font-semibold">
+        <td class="p-2 text-right" colspan="3">
+          <span class="text-[13px] font-normal">ราคาสุทธิ</span>
+        </td>
+        <td class="p-2 text-center">
+          <span class="text-[13px] font-medium">฿{{ final_total|intcomma}}</span>
+        </td>
+      </tr>
+    </tfoot>
+  </table>
+  <div class="mt-4 grid grid-cols-2">
+    <div>
+      <h3>ที่อยู่จัดส่ง</h3>
+      <div class="ml-2 mt-2 flex flex-col gap-2">
+        {% for address in order.address_as_list %}
+        <p class="text-sm font-light">{{ address }}</p>
+        {% endfor %}
+      </div>
+    </div>
+    <div class="flex flex-row justify-between">
+      <div>
+        <h3>วิธีการชำระเงิน</h3>
+        <div class="ml-2 mt-2 flex flex-col gap-2">
+          <p class="text-sm font-light">QR พร้อมเพย์</p>
+        </div>
+      </div>
+      {% if not order.payment %}
+      <form action="{% url 'store:order-payment' order.id %}">{% button "ชำระเงิน" font="font-light" %}</form>
+      {% endif %}
+    </div>
+  </div>
+</div>
+{% endblock sub_content %}

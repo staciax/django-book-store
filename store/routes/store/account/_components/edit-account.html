@@ -1,0 +1,28 @@
+{% extends "store/account/layout.html" %}
+<!--  -->
+{% load store %}
+<!--  -->
+{% block sub_content %}
+<div class="w-full min-h-[400px]">
+  <form action="{% url 'store:update-account' %}" method="post">
+    {% csrf_token %}
+    <div class="grid grid-cols-2 gap-4">
+      <div>
+        {% text_field "ชื่อ" type="text" name="first_name" id="first_name" maxlength="128" value=user.first_name %}
+      </div>
+      <div>
+        {% text_field "นามสกุล" type="text" name="last_name" id="last_name" maxlength="128" value=user.last_name %}
+      </div>
+      <div class="col-span-2">
+        {% text_field "อีเมล" type="text" name="email" id="email" maxlength="128" value=user.email disabled=1 %}
+      </div>
+      <!-- prettier-ignore -->
+      <div>
+        {% text_field "เบอร์โทรศัพท์" type="tel" name="phone_number" id="phone_number" maxlength="10" value=user.phone_number %}
+      </div>
+    </div>
+    <!--  -->
+    <div class="mt-6 w-28">{% button "บันทึก" %}</div>
+  </form>
+</div>
+{% endblock sub_content %}

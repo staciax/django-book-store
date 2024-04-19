@@ -1,0 +1,17 @@
+{% load static %}
+<div class="rounded-md bg-white py-3 shadow">
+  <ul class="w-[325px]">
+    {% for nav in store_account_navigator %}
+    <li
+      class="{% if nav.url == request.path %}active{% endif %} flex h-12 items-center justify-center bg-white text-gray-600 transition hover:bg-blue-50 hover:text-secondary [&.active]:bg-blue-50 [&.active]:text-secondary"
+    >
+      <a href="{{nav.url}}" class="flex max-h-[20px] w-[275px] items-center justify-start text-[16px]">
+        <span>
+          <img src="{% static 'store/img/'|add:nav.icon %}" width="20" walt="" class="fill-slate-900" />
+        </span>
+        <span class="pl-4">{{nav.text}}</span>
+      </a>
+    </li>
+    {% endfor %}
+  </ul>
+</div>

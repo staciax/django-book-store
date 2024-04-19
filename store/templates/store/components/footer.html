@@ -1,0 +1,40 @@
+{% load static %}
+<footer class="bg-primary shadow">
+  <div class="container mx-auto flex h-40 items-center justify-between">
+    <div>
+      <p class="font-bold text-white">AQUARIUS</p>
+      <div class="mt-4 flex flex-col gap-2 text-sm text-white">
+        <a class="ml-2"> uni project. </a>
+      </div>
+      <div class="mt-8 text-white">
+        <a class="hover:opacity-75" href="https://github.com/staciax/django-book-store" target="_blank">
+          <img src="{% static 'store/img/github.svg' %}" alt="" />
+        </a>
+      </div>
+    </div>
+    <div>
+      <p class="font-bold text-white">CONTACT US</p>
+      <div class="mt-4 flex flex-col gap-2 text-sm text-white">
+        <div class="flex items-center">
+          <img src="{% static 'store/img/phone.svg' %}" alt="" class="select-none" />
+          <a class="ml-1 transition hover:opacity-75" href="callto:+66987654321"> 098-765-4321 </a>
+        </div>
+        <div class="flex items-center">
+          <img src="{% static 'store/img/email.svg' %}" alt="" class="select-none" />
+          <a class="ml-1 transition hover:opacity-75" href="mailto:stacia.dev@gmail.com"> stacia.dev@gmail.com </a>
+        </div>
+      </div>
+    </div>
+    <div>
+      <p class="font-bold text-white">ABOUT US</p>
+      <div class="mt-4 flex flex-col space-y-2 text-sm text-white">
+        <a class="ml-1 transition hover:opacity-75"> วิธีการสั่งซื้อ </a>
+        <a class="ml-1 transition hover:opacity-75"> แจ้งชำระเงิน </a>
+        <a class="ml-1 transition hover:opacity-75"> นโยบายความเป็นส่่วนตัว </a>
+      </div>
+    </div>
+  </div>
+  <div class="container mx-auto p-4">
+    <p class="text-sm capitalize text-white xl:text-center">&copy; 2024 STACiA. All rights reserved.</p>
+  </div>
+</footer>

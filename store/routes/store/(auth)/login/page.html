@@ -1,0 +1,46 @@
+{% extends "store/(auth)/layout.html" %}
+<!--  -->
+{% load static %}
+<!--  -->
+{% load store %}
+<!--  -->
+{% block sub_content %}
+
+<div class="flex items-center justify-center">
+  <a class="text-3xl">AQUARIUS</a>
+</div>
+<form id="form" class="flex flex-col" method="post">
+  {% csrf_token %}
+
+  <!--  -->
+  {% text_field "อีเมล" type="text" name="email" id="email" maxlength="256" %}
+
+  <p id="email-error" class="mt-0 text-xs italic text-red-500"></p>
+
+  <!--  -->
+  {% text_field "รหัสผ่าน" type="password" name="password" id="password" maxlength="256" %}
+
+  <p id="password-error" class="mt-0 text-xs italic text-red-500"></p>
+
+  <div class="my-4 flex items-center">
+    <a href="{% url 'store:forgot-password' %}" class="text-sm font-normal text-primary">ลืมรหัสผ่าน?</a>
+  </div>
+
+  <!--  -->
+  <div>{% button "เข้าสู่ระบบ" %}</div>
+
+  <div class="mt-6 flex flex-row items-center justify-center">
+    <h6 class="text-sm font-normal text-dark-primary">ยังไม่มีบัญชีใช่ไหม?</h6>
+    <a href="{% url 'store:register' %}" class="ml-1 text-sm font-normal text-primary">สมัครสมาชิก</a>
+  </div>
+
+  {% if next %}
+  <input type="hidden" name="next" value="{{next}}" />
+  {% endif %}
+</form>
+
+{% endblock sub_content %}
+<!--  -->
+{% block scripts %}
+<script src="{% static 'store/js/login.js' %}"></script>
+{% endblock %}

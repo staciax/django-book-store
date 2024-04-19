@@ -1,0 +1,93 @@
+{% extends "store/account/layout.html" %}
+<!--  -->
+{% load store %}
+<!--  -->
+{% load static %}
+<!--  -->
+{% load humanize %}
+<!--  -->
+{% block sub_title %} คำสั่งซื้อของฉัน {% endblock sub_title %}
+<!--  -->
+{% block sub_content %}
+<!--  -->
+{% if orders %}
+<!--  -->
+{% for order in orders %}
+<div class="w-full min-h-[400px]">
+  <div class="flex flex-col rounded border border-solid border-gray-300">
+    <div class="flex justify-between px-4 py-2">
+      <div class="flex flex-col">
+        <h3 class="text-base font-light">คำสั่งซื้อ #{{order.id}}</h3>
+        <h6 class="text-sm font-light">วันที่สั่งซื้อ {{order.created_at}}</h6>
+      </div>
+      <div class="flex flex-row items-center gap-2">
+        <div class="flex flex-col items-end">
+          <h3 class="text-sm font-light">สถานะคำสั่งซื้อ</h3>
+          <h6 class="text-sm font-light">{{order.status}}</h6>
+        </div>
+        <div>
+          <a href="{{order.get_absolute_url}}">
+            <button
+              class="rounded-lg bg-primary p-2 text-sm font-light text-white transition duration-200 hover:bg-tertiary hover:shadow"
+            >
+              รายละเอียด
+            </button>
+          </a>
+        </div>
+      </div>
+    </div>
+    <hr class="mb-2" />
+    <div class="px-4">
+      <table class="w-full table-auto">
+        <tbody>
+          {% for item in order.items.all|slice:":2" %}
+          <tr>
+            <td class="w-16 py-2">
+              <a href="{{item.product.get_absolute_url}}" class="font-light hover:underline" target="_blank">
+                <img
+                  class="mx-auto rounded transition duration-300 hover:opacity-85 hover:shadow-md"
+                  src="{% get_media_prefix %}{{item.product.first_image}}"
+                  alt=""
+                  width=""
+                />
+              </a>
+            </td>
+            <td class="flex w-full flex-col px-2 py-2">
+              <span class="text-sm font-normal transition duration-200 hover:underline">{{ item.product.title }}</span>
+              <div class="mt-2 flex flex-row">
+                <h6 class="text-sm font-light text-gray-500">x{{item.quantity}}</h6>
+                <h2 class="ml-auto text-base font-light">{{ item.sub_total|intcomma }} บาท</h2>
+              </div>
+            </td>
+          </tr>
+          {% endfor %}
+          <!--  -->
+          {% if order.items.count > 2 %}
+          <tr>
+            <td colspan="2">
+              <a href="{{order.get_absolute_url}}" class="text-sm font-light"
+                >อีก {{order.items.count|add:"-2"}} รายการ...</a
+              >
+            </td>
+          </tr>
+          {% endif %}
+        </tbody>
+      </table>
+    </div>
+    <hr class="my-2" />
+    <div class="flex flex-row-reverse px-4 pb-2">
+      <p class="text-sm font-light">
+        รวม<span class="ml-2 text-base font-normal">{{order.get_total | intcomma}} บาท</span>
+      </p>
+    </div>
+  </div>
+</div>
+{% endfor %}
+<!--  -->
+{% else %}
+<div class="min-h-[400px]">
+  <h3 class="text-center text-2xl font-light">ไม่พบคำสั่งซื้อ</h3>
+</div>
+{% endif %}
+<!--  -->
+{% endblock sub_content %}

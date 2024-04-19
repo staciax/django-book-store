@@ -1,0 +1,31 @@
+{% extends "store/(auth)/layout.html" %}
+<!--  -->
+{% load store %}
+<!--  -->
+{% block sub_content %}
+
+<div class="flex items-center justify-center">
+  <a class="text-3xl">AQUARIUS</a>
+</div>
+<div class="flex flex-col" method="post">
+  {% csrf_token %}
+
+  <form action="">
+    {% text_field "อีเมล" type="email" name="email" maxlength="256" %}
+
+    <div class="my-4"></div>
+
+    <div>{% button "ลืมรหัสผ่าน" %}</div>
+  </form>
+
+  <div class="my-2"></div>
+
+  <form action="{% url 'store:login' %}">
+    <div>{% button_light "กลับไปเข้าสู่ระบบ" %}</div>
+  </form>
+  {% if next %}
+  <input type="hidden" name="next" value="{{next}}" />
+  {% endif %}
+</div>
+
+{% endblock sub_content %}

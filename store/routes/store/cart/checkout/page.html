@@ -1,0 +1,14 @@
+{% extends "store/layout.html" %}
+<!--  -->
+{% block content %}
+<!--  -->
+<form action="{% url 'store:create-order' %}" method="post">
+  {% csrf_token %}
+  <div class="my-8 grid grid-cols-2 gap-4">
+    <!--  -->
+    {% include 'store/cart/checkout/_components/left.html' %}
+    <!--  -->
+    {% include 'store/cart/checkout/_components/right.html' %}
+  </div>
+</form>
+{% endblock content %}

@@ -1,0 +1,41 @@
+{% load static %}
+<!--  -->
+{% load store %}
+<!--  -->
+{% load humanize %}
+<!--  -->
+<div class="flex max-w-[160px] flex-col justify-between rounded-md" id="{{product.id}}">
+  <div class="overflow-hidden">
+    <a href="{{product.get_absolute_url}}">
+      <img
+        src="{% get_media_prefix %}{{product.first_image.image}}"
+        alt="product-image"
+        width="160"
+        class="h-52 w-40 rounded-md object-cover transition duration-200 hover:opacity-85"
+      />
+    </a>
+  </div>
+  <div class="mt-2">
+    <a href="{{product.get_absolute_url}}" class="line-clamp-2 text-left text-sm transition hover:text-primary">
+      {{product.title}}
+    </a>
+  </div>
+  <div>
+    <p class="text-center text-base">฿{{product.price | intcomma}}</p>
+  </div>
+  <div class="mt-2">
+    <form action="{% url 'store:cart-add-product' product.id 1 %}" method="post">
+      {% csrf_token %}
+      <!--  -->
+      {% if product.quantity and product.is_available %}
+      <!--  -->
+      {% button "เพิ่มไปยังตะกร้า" font="font-light" text="text-sm"%}
+      <!--  -->
+      {% else %}
+      <!--  -->
+      {% button "สิินค้าหมด" font="font-light" text="text-sm" disabled=True %}
+      <!--  -->
+      {% endif %}
+    </form>
+  </div>
+</div>

@@ -1,0 +1,67 @@
+{% load static %}
+
+<nav class="w-full bg-primary shadow">
+  <div class="container mx-auto flex h-[50px] items-center justify-between">
+    <div>
+      <div class="w-[150px] select-none">
+        <a href="{% url 'store:home' %}" class="text-2xl font-bold text-white">AQUARIUS</a>
+      </div>
+    </div>
+    <div>
+      <div class="w-[400px]">
+        <form id="search-form" class="relative mx-auto max-w-[350px] text-white" action="{% url 'store:home' %}">
+          <input
+            id="search-input"
+            name="search"
+            type="search"
+            class="h-[36px] w-full rounded-md border-transparent text-gray-700 shadow focus:border-transparent focus:ring-0"
+            placeholder="ค้นหา"
+            autocomplete="off"
+          />
+          <button type="submit" class="absolute right-0 top-0 mr-2 mt-1">
+            <img src="{% static 'store/img/search.svg' %}" alt="search" width="30px" />
+          </button>
+        </form>
+      </div>
+    </div>
+    <div>
+      <div class="mr-2 flex w-[150px] items-center justify-end gap-4">
+        <div class="flex select-none text-white">
+          <a href="{% url 'store:account' %}">
+            <img src="{% static 'store/img/account.svg' %}" alt="" />
+          </a>
+        </div>
+        <div class="select-none text-white">
+          <div class="relative">
+            <a href="{% url 'store:cart' %}"><img src="{% static 'store/img/cart.svg' %}" alt="" /></a>
+            {% if user.is_authenticated and store_cart_count %}
+            <span
+              class="absolute right-0 top-0 h-5 min-w-5 -translate-y-2/4 translate-x-2/4 scale-100 rounded-xl border-2 bg-red-500 text-center text-xs text-white"
+            >
+              {{store_cart_count}}
+            </span>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    class="mx-auto flex h-[38px] max-w-screen-xl items-center justify-around border-t-[1px] border-white border-opacity-25 bg-primary"
+  >
+    <ul class="flex gap-3">
+      <li class="list-none">
+        <a class="text-white transition hover:opacity-75" href="{% url 'store:home' %}">หน้าแรก</a>
+      </li>
+      <li class="list-none">
+        <a class="text-white transition hover:opacity-75" href="{% url 'store:home' %}">ยอดนิยม</a>
+      </li>
+      <li class="list-none">
+        <a class="text-white transition hover:opacity-75" href="{% url 'store:home' %}">ไลท์โนเวล</a>
+      </li>
+      <li class="list-none">
+        <a class="text-white transition hover:opacity-75" href="{% url 'store:home' %}">มังงะ</a>
+      </li>
+    </ul>
+  </div>
+</nav>

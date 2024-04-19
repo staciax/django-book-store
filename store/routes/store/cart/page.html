@@ -1,0 +1,164 @@
+{% extends "store/layout.html" %}
+<!--  -->
+{% load static %}
+<!--  -->
+{% load humanize %}
+<!--  -->
+{% load store %}
+<!--  -->
+{% block content %}
+
+<section class="rounded-md bg-gray-100 pt-8 min-h-[650px]">
+  {% if cart_items %}
+  <div class="w-full rounded-md bg-white shadow">
+    <table class="w-full min-w-[750px] table-auto border-collapse border-spacing-0">
+      <thead>
+        <tr class="text-left">
+          <th class="border-b p-4">
+            <span class="ml-4 text-sm font-light">สินค้า</span>
+          </th>
+          <th class="border-b p-4 text-center">
+            <span class="text-sm font-light">ราคาต่อชิ้น</span>
+          </th>
+          <th class="border-b p-4 text-center">
+            <span class="text-sm font-light">จำนวน</span>
+          </th>
+          <th class="border-b p-4 text-center">
+            <span class="text-sm font-light">ราคารวม</span>
+          </th>
+          <th class="border-b p-4 text-center">
+            <span class="text-sm font-light">แอคชั่น</span>
+          </th>
+        </tr>
+      </thead>
+      <tbody class="table-auto text-left">
+        {% for item in cart_items %}
+        <tr class="transition duration-200 hover:bg-gray-100">
+          <td class="border-b p-4">
+            <div class="ml-4 flex items-start gap-4">
+              <div class="w-16">
+                <a href="{{item.product.get_absolute_url}}">
+                  <img
+                    src="{% get_media_prefix %}{{item.product.first_image}}"
+                    alt=""
+                    class="mx-auto rounded transition duration-300 hover:opacity-85 hover:shadow-md"
+                  />
+                </a>
+              </div>
+              <div class="flex flex-col">
+                <a href="{{item.product.get_absolute_url}}">
+                  <span class="text-sm font-normal transition duration-200 hover:underline">
+                    {{ item.product.title }}
+                  </span>
+                </a>
+                <a href="{{item.product.genre.get_absolute_url}}">
+                  <span class="5 text-sm font-light transition duration-200 hover:underline">
+                    {{ item.product.genre }}
+                  </span>
+                </a>
+              </div>
+            </div>
+          </td>
+          <td class="border-b p-4 text-center">
+            <h6 class="text-sm font-normal">฿{{ item.product.price | intcomma }}</h6>
+          </td>
+          <td class="border-b p-4 text-center">
+            {% if item.product.quantity and item.product.is_available %}
+            <div class="flex flex-row justify-center rounded">
+              <!-- <h6 class="text-sm font-light">{{item.quantity}}</h6> -->
+              <form
+                id="{{item.quantity}}"
+                name="cart-sub-form"
+                action="{% url 'store:cart-subtract' item.id %}"
+                method="post"
+              >
+                {% csrf_token %}
+                <button
+                  class="min-w-10 rounded-l-lg border border-solid border-r-transparent text-primary transition duration-300 hover:border-r-transparent hover:bg-primary hover:text-white"
+                >
+                  -
+                </button>
+              </form>
+              <button
+                id="quantity"
+                class="min-w-10 border border-solid text-sm text-primary transition duration-300 hover:bg-primary hover:text-white"
+              >
+                {{item.quantity}}
+              </button>
+              <form
+                id="{{item.quantity}}"
+                name="cart-add-form"
+                action="{% url 'store:cart-add' item.id %}"
+                method="post"
+              >
+                {% csrf_token %}
+                <button
+                  class="min-w-10 rounded-r-lg border border-solid border-l-transparent text-primary transition duration-300 hover:border-l-transparent hover:bg-primary hover:text-white"
+                >
+                  +
+                </button>
+              </form>
+            </div>
+            {% if item.product.quantity < 10 and item.product.quantity %}
+            <h6 class="mt-2 text-sm font-light">เหลือสินค้าอยู่ {{item.product.quantity}} ชิ้น</h6>
+            {% endif %}
+            <!--  -->
+            {% else %}
+            <h6 class="text-sm font-normal text-gray-500">สินค้าหมด</h6>
+            {% endif %}
+          </td>
+          <td class="border-b p-4 text-center">
+            <h6 class="text-sm font-normal">฿{{ item.sub_total|intcomma }}</h6>
+          </td>
+          <td class="border-b p-4 text-center">
+            <form action="{% url 'store:cart-delete' item.id %}" method="post" name="delete-cart-form">
+              {% csrf_token %}
+              <button>
+                <svg width="20" height="22" viewBox="0 0 20 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    d="M1 5H19M17 5V19C17 19.5304 16.7893 20.0391 16.4142 20.4142C16.0391 20.7893 15.5304 21 15 21H5C4.46957 21 3.96086 20.7893 3.58579 20.4142C3.21071 20.0391 3 19.5304 3 19V5M6 5V3C6 2.46957 6.21071 1.96086 6.58579 1.58579C6.96086 1.21071 7.46957 1 8 1H12C12.5304 1 13.0391 1.21071 13.4142 1.58579C13.7893 1.96086 14 2.46957 14 3V5M8 10V16M12 10V16"
+                    stroke="black"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+              </button>
+            </form>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+      <tfoot>
+        <tr class="font-semibold text-gray-900">
+          <td class="p-4 text-left" colspan="4">
+            <span class="ml-4 text-sm font-normal">ราคารวม</span>
+          </td>
+          <td class="p-4 text-center">
+            <span class="text-sm font-medium">฿{{ total|intcomma}}</span>
+          </td>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+  <div>
+    <form action="{% url 'store:cart-checkout' %}" class="mt-4 flex flex-row-reverse">
+      <div class="w-full max-w-[160px]">{% button "สั่งซื้อสินค้า" %}</div>
+    </form>
+  </div>
+  {% else %}
+  <div class="rounded-md border bg-gray-50 p-60 shadow">
+    <div class="flex w-full flex-col items-center gap-4">
+      <h3 class="text-center text-3xl font-light">ไม่พบสินค้าในตะกร้า</h3>
+      <form action="{% url 'store:home' %}">
+        <div class="max-w-44">{% button "เลือกซื้อสินค้า" font="font-light" text="text-lg" %}</div>
+      </form>
+    </div>
+  </div>
+  {% endif %}
+</section>
+{% endblock content %}
+<!--  -->
+{% block scripts %}
+<script src="{% static 'store/js/cart.js' %}"></script>
+{% endblock %}

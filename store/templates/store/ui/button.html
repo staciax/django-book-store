@@ -1,0 +1,7 @@
+<button
+  type="{{type}}"
+  class=" w-full min-w-[64px] rounded-md {% if disabled %} bg-gray-500 {% else %} bg-primary{% endif %} px-4 py-2 {{font}} {{text}} text-light-primary transition duration-200  {% if not disabled %} hover:bg-tertiary {% endif %}  hover:shadow"
+  {{disabled}}
+>
+  {{label}}
+</button>

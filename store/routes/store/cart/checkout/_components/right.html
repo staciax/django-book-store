@@ -1,0 +1,57 @@
+{% load static %}
+<!--  -->
+{% load humanize %}
+<!--  -->
+{% load store %}
+<!--  -->
+<div class="rounded-md border p-4 shadow">
+  <div class="mt-2">
+    <p class="text-xl">สรุปรายการสั่งซื้อ</p>
+  </div>
+  <ul class="mt-2 flex flex-col gap-4">
+    {% for item in cart_items %}
+    <!--  -->
+    <li class="flex items-start gap-4 px-2">
+      <div class="w-16">
+        <a href="{{item.product.get_absolute_url}}">
+          <img
+            src="{% get_media_prefix %}{{item.product.first_image}}"
+            alt=""
+            class="mx-auto rounded transition duration-300 hover:opacity-85 hover:shadow-md"
+          />
+        </a>
+      </div>
+      <div class="flex w-full flex-col">
+        <div class="flex justify-between">
+          <a href="{{item.product.get_absolute_url}}">
+            <span class="text-sm font-normal transition duration-200 hover:underline">{{ item.product.title }}</span>
+          </a>
+          <h3 class="text-base">฿{{ item.sub_total|intcomma }}</h3>
+        </div>
+        <h6 class="text-sm">จำนวน: {{item.quantity}}</h6>
+      </div>
+    </li>
+    {% endfor %}
+  </ul>
+  <div class="mt-2 p-2">
+    <div class="flex flex-col items-end">
+      <div class="flex w-full flex-row justify-between">
+        <p class="font-light">ราคาสิินค้า:</p>
+        <p class="font-light">฿{{ total|intcomma}}</p>
+      </div>
+      <div class="flex w-full flex-row justify-between">
+        <p class="font-light">ค่าจัดส่ง:</p>
+        <p class="font-light">฿{{ shipping|intcomma}}</p>
+      </div>
+      <div class="flex w-full flex-row justify-between">
+        <p class="font-light">ราคารวม:</p>
+        <p>฿{{ final_total|intcomma}}</p>
+      </div>
+    </div>
+  </div>
+  <div class="mt-2 px-2">
+    <div class="flex w-full justify-end">
+      <div>{% button "สั่งซื้อสินค้า" %}</div>
+    </div>
+  </div>
+</div>

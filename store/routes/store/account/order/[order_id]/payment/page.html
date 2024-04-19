@@ -1,0 +1,76 @@
+{% extends "store/layout.html" %}
+<!--  -->
+{% load static %}
+<!--  -->
+{% load humanize %}
+<!--  -->
+{% load store %}
+<!--  -->
+{% block content %}
+<div class="py-8">
+  <div class="flex w-full flex-col items-center">
+    <h2 class="text-3xl font-light">เลขที่ใบสั่งคำสั่งซื้อ : {{order.id}}</h2>
+    <div class="py-2">
+      <div class="w-[300px] bg-promptpay">
+        <img src="{% static 'store/img/qr-payment.png' %}" alt="" width="120" height="50" class="mx-auto" />
+      </div>
+    </div>
+    <div class="mt-2">
+      <img src="https://promptpay.io/{{promptpay_id}}/{{final_total}}.png" width="300" />
+    </div>
+    <div class="mt-4 flex flex-col items-center">
+      <h2 class="text-2xl font-light">บริษัท จ่ายแล้วบิด จำกัด</h2>
+      <h2 class="text-2xl font-light">รวมยอดชำระเงิน: {{final_total|intcomma}} บาท</h2>
+      <!-- <h4 id="orderRemain" class="mt-2 text-base font-light"></h4> -->
+    </div>
+    <div class="mt-4">
+      <form action="{% url 'store:payment' order.id %}" enctype="multipart/form-data" method="post">
+        {% csrf_token %}
+        <div class="flex flex-col items-center gap-4">
+          <div class="flex flex-col items-center gap-2">
+            <label for="file_input" class="font-light">อัพโหลดสลิปยืนยัน</label>
+            <input
+              type="file"
+              name="file_input"
+              accept=".png, .jpg, .jpeg"
+              class="w-full cursor-pointer rounded-md border"
+              required
+            />
+          </div>
+          <div class="w-20">{% button "ยืนยัน" font="font-light" %}</div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<script>
+  // const orderCreatedAt = new Date('{{order.created_at.isoformat}}').getTime();
+
+  // const countdownDate = orderCreatedAt + 10 * 60 * 1000;
+
+  // const countdownTimer = setInterval(() => {
+  //   const now = new Date().getTime();
+
+  //   const distance = countdownDate - now;
+
+  //   if (distance < 0) {
+  //     clearInterval(countdownTimer);
+  //     document.getElementById('orderRemain').innerHTML = 'คำสั่งซื้อหมดอายุแล้ว';
+  //     return;
+  //   }
+
+  //   let minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+  //   let seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+  //   if (minutes < 10) {
+  //     minutes = `0${minutes}`;
+  //   }
+  //   if (seconds < 10) {
+  //     seconds = `0${seconds}`;
+  //   }
+
+  //   document.getElementById('orderRemain').innerHTML = 'กรุณาชำระเงินภายใน ' + minutes + ':' + seconds;
+  // }, 1000);
+</script>
+{% endblock content %}

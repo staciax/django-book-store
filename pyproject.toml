@@ -1,0 +1,74 @@
+[project]
+name = "aquarius"
+requires-python = ">=3.12"
+
+[tool.pyright]
+include = ["app", "user", "store"]
+exclude = [
+  "**/__pycache__",
+  ".git",
+  ".ruff_cache",
+  ".venv",
+  ".vscode",
+  "dist",
+  "media",
+  "static",
+  "node_modules",
+  "**/migrations",
+]
+pythonVersion = "3.12"
+typeCheckingMode = "basic"
+reportUnusedImport = "error"
+reportUnnecessaryTypeIgnoreComment = "warning"
+reportMissingParameterType = "error"
+reportMissingTypeArgument = "error"
+reportUnusedVariable = "warning"
+
+[tool.ruff]
+line-length = 120
+target-version = "py312"
+exclude = [
+  ".git",
+  ".ruff_cache",
+  ".venv",
+  ".vscode",
+  "dist",
+  "media",
+  "static",
+  "node_modules",
+  "migrations",
+]
+
+[tool.ruff.format]
+preview = true
+quote-style = "single"
+indent-style = "space"
+skip-magic-trailing-comma = false
+line-ending = "auto"
+
+[tool.ruff.lint]
+preview = true
+select = [
+  "E",   # pycodestyle errors
+  "W",   # pycodestyle warnings
+  "F",   # pyflakes
+  "I",   # isort
+  "UP",  # pyupgrade,
+  "B",   # flake8-bugbear
+  "C4",  # flake8-comprehensions
+  "TCH", # flake8-type-checking-hints
+  "FA",  # flake8-future-annotations
+  "DJ",  # flake8-django
+]
+
+[tool.ruff.lint.isort]
+known-first-party = ["app", "user"]
+known-local-folder = ["store"]
+combine-as-imports = true
+
+[tool.ruff.lint.pyflakes]
+extend-generics = [
+  "django.db.models.ForeignKey",
+  "django.db.models.OneToOneField",
+  "django.contrib.admin.ModelAdmin",
+]

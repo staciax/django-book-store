@@ -1,0 +1,48 @@
+{% load store %}
+
+<div class="w-full">
+  <form action="{{form_action}}" method="post">
+    {% csrf_token %}
+    <!--  -->
+    {% if next %}
+    <input type="hidden" name="next" value="{{next}}" />
+    {% endif %}
+    <div class="grid grid-cols-2 gap-4">
+      <!-- prettier-ignore -->
+      <div>{% text_field "ชื่อ-นามสกุล" type="text" name="full_name" id="full_name" maxlength="256" value=address.full_name required=True %}</div>
+      <!-- prettier-ignore -->
+      <div>{% text_field "หมายเลขโทรศัพท์" type="tel" name="phone_number" id="phone_number" maxlength="10" value=address.phone_number required=True %}</div>
+      <!-- prettier-ignore -->
+      <div>{% text_field "จังหวัด" type="text" name="province" id="province" maxlength="128" value=address.province required=True %}</div>
+      <!-- prettier-ignore -->
+      <div>{% text_field "เขต/อำเภอ" type="text" name="district" id="district" maxlength="128" value=address.district required=True %}</div>
+      <!-- prettier-ignore -->
+      <div>{% text_field "รหัสไปรษณีย์" type="text" name="postal_code" id="postal_code" maxlength="5" value=address.postal_code required=True %}</div>
+    </div>
+    <div class="mt-4 flex flex-col">
+      <label for="street_address" class="mb-1 mt-2 text-sm font-normal leading-7"
+        >บ่้านเลขที่, ซอย, หมู่, ถนน, แขวง/ตำบล</label
+      >
+      <!-- prettier-ignore -->
+      <textarea
+        name="street_address"
+        id="street_address"
+        rows="3"
+        maxlength="256"
+        required
+        class="w-full resize rounded-md border-2 border-light-secondary px-[14px] py-2 text-base font-light focus:border-2 focus:border-primary focus:ring-0"
+      >{{address.street_address}}</textarea>
+    </div>
+    <div class="mt-6 w-28">
+      {% if address %}
+      <!--  -->
+      {% button "บันทึก" %}
+      <!--  -->
+      {% else %}
+      <!--  -->
+      {% button "ยืนยัน" %}
+      <!--  -->
+      {% endif %}
+    </div>
+  </form>
+</div>
