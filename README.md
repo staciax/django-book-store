@@ -26,7 +26,6 @@
 ## Requirements
 
 - [Python](https://www.python.org) 3.12+
-- [Node.js](https://nodejs.org/en) 20+
 
 ## Environment Variables
 
