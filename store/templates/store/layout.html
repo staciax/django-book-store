@@ -12,9 +12,35 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     {{metadata}}
     <!--  -->
-    {% compress css %}
-    <link rel="stylesheet" href="{% static 'store/css/dist/style.css' %}" />
-    {% endcompress %}
+    <script src="https://cdn.tailwindcss.com?plugins=forms,typography"></script>
+    <link rel="stylesheet" href="{% static 'store/css/style.css' %}" />
+    <script>
+      tailwind.config = {
+        theme: {
+          container: {
+            screens: {
+              xl: '1200px',
+              '2xl': '1200px',
+            },
+          },
+          extend: {
+            colors: {
+              primary: '#5D87FF',
+              'light-primary': '#ECF2FF',
+              'dark-primary': '#2A3547',
+              secondary: '#1895f5',
+              'light-secondary': '#DFE5EF',
+              tertiary: '#4570EA',
+              'light-tertiary': '#d8d8d8',
+              promptpay: '#113566',
+            },
+            fontFamily: {
+              prompt: ['Prompt', 'sans-serif'],
+            },
+          },
+        },
+      };
+    </script>
   </head>
 
   <body class="bg-gray-100 font-prompt">

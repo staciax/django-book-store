@@ -56,10 +56,7 @@ python3 -m venv .venv
 2. ติดตั้ง Package ที่จำเป็นสำหรับโปรเจค
 
 ```bash
-# python package
 make install
-# node package
-make node-install
 ```
 
 3. เซ็ตอัพโปรเจค

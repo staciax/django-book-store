@@ -38,8 +38,6 @@ setup: # Setup the project (collect static files, migrate the database)
 	echo "Setting up the project"
 	make static 
 	sleep 0.1
-	$(npm) run build
-	sleep 0.1
 	make migrate
 
 .PHONY: clean
@@ -81,15 +79,15 @@ create-superuser: # Create a superuser
 compress: # Compress static files
 	$(python) manage.py compress
 
-.PHONY: tailwind-dev
-.SILENT: tailwind-dev
-tailwind-dev: # Run tailwind in development mode
-	$(npm) run dev
+# .PHONY: tailwind-dev
+# .SILENT: tailwind-dev
+# tailwind-dev: # Run tailwind in development mode
+# 	$(npm) run dev
 
-.PHONY: tailwind-build
-.SILENT: tailwind-build
-tailwind-build: # Build tailwind in production mode
-	$(npm) run build
+# .PHONY: tailwind-build
+# .SILENT: tailwind-build
+# tailwind-build: # Build tailwind in production mode
+# 	$(npm) run build
 
 .PHONY: check
 .SILENT: check
