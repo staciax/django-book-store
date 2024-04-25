@@ -20,6 +20,6 @@ module.exports = [
         ...globals.commonjs,
       },
     },
-    ignores: ['**/node_modules', '**/dist', '**/.git', '**/.venv'],
+    ignores: ['**/node_modules', '**/dist', '**/.git', '**/.venv', '/static/**']
   },
 ];
