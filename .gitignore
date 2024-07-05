@@ -5,5 +5,4 @@ dist/
 node_modules
 media/
 /static/
-.vscode
 .DS_Store
