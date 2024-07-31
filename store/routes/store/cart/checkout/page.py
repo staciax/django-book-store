@@ -8,6 +8,7 @@ from django.shortcuts import redirect
 from store.core.routers import render
 from store.metadata import metadata
 from store.models import Address, Cart
+from store.utils.carts import refresh_cart_item_quantity
 
 
 @login_required(login_url='/login')
@@ -24,6 +25,8 @@ def page(request: HttpRequest) -> HttpResponse:
 
     if cart_items.count() <= 0:
         return redirect('store:cart')
+
+    refresh_cart_item_quantity(cart_items)
 
     addresses = Address.objects.filter(user=request.user).order_by('created_at')
 
