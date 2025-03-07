@@ -17,21 +17,6 @@ help:
 run: 
 	$(python) manage.py runserver
 
-.PHONY: install
-.SILENT: install
-install: # Install requirements
-	$(pip) install -r requirements.txt
-
-.PHONY: node-install
-.SILENT: node-install
-node-install: # Install node modules
-	$(npm) install
-
-.PHONY: dev-install
-.SILENT: dev-install
-dev-install: # Install dev requirements
-	$(pip) install -r requirements-dev.txt
-
 .PHONY: setup
 .SILENT: setup
 setup: # Setup the project (collect static files, migrate the database)

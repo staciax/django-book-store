@@ -9,7 +9,8 @@ dependencies = [
   "django-browser-reload==1.18.0",
   "django-compressor==4.5.1",
   "django-environ==0.12.0",
-  "django-stubs-ext==5.1.3", # for django ImageField
+  "django-stubs-ext==5.1.3",
+  "pillow==11.1.0", # for django ImageField
   "psycopg[binary]==3.2.5",
 ]
 
