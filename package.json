@@ -1,10 +1,10 @@
 {
   "name": "aquarius",
   "scripts": {
-    "dev": "cross-env NODE_ENV=development npx tailwindcss --postcss -i ./store/static/store/css/style.css -o ./store/static/store/css/dist/style.css --watch",
+    "dev": "cross-env NODE_ENV=development npx @tailwindcss/cli --postcss -i ./store/static/store/css/style.css -o ./store/static/store/css/dist/style.css --watch",
     "build": "npm run build:clean && npm run build:tailwind",
     "build:clean": "npx rimraf ./static/store/css/dist",
-    "build:tailwind": "cross-env NODE_ENV=production npx tailwindcss --postcss -i ./static/store/css/style.css -o ./static/store/css/dist/style.css --minify",
+    "build:tailwind": "cross-env NODE_ENV=production npx @tailwindcss/cli --postcss -i ./static/store/css/style.css -o ./static/store/css/dist/style.css --minify",
     "check": "npx prettier --check .",
     "format": "npx prettier --write ."
   },
