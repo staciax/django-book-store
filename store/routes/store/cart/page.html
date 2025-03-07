@@ -10,7 +10,7 @@
 
 <section class="min-h-[650px] rounded-md bg-gray-100 pt-8">
   {% if cart_items %}
-  <div class="w-full rounded-md bg-white shadow">
+  <div class="w-full rounded-md bg-white shadow-sm">
     <table class="w-full min-w-[750px] table-auto border-collapse border-spacing-0">
       <thead>
         <tr class="text-left">
@@ -41,7 +41,7 @@
                   <img
                     src="{% get_media_prefix %}{{item.product.first_image}}"
                     alt=""
-                    class="mx-auto rounded transition duration-300 hover:opacity-85 hover:shadow-md"
+                    class="mx-auto rounded-sm transition duration-300 hover:opacity-85 hover:shadow-md"
                   />
                 </a>
               </div>
@@ -64,7 +64,7 @@
           </td>
           <td class="border-b p-4 text-center">
             {% if item.product.quantity and item.product.is_available %}
-            <div class="flex flex-row justify-center rounded">
+            <div class="flex flex-row justify-center rounded-sm">
               <!-- <h6 class="text-sm font-light">{{item.quantity}}</h6> -->
               <form
                 id="{{item.quantity}}"
@@ -147,7 +147,7 @@
     </form>
   </div>
   {% else %}
-  <div class="rounded-md border bg-gray-50 p-60 shadow">
+  <div class="rounded-md border bg-gray-50 p-60 shadow-sm">
     <div class="flex w-full flex-col items-center gap-4">
       <h3 class="text-center text-3xl font-light">ไม่พบสินค้าในตะกร้า</h3>
       <form action="{% url 'store:home' %}">

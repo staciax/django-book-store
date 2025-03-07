@@ -1,6 +1,6 @@
 {% load static %}
 
-<nav class="w-full bg-primary shadow">
+<nav class="w-full bg-primary shadow-sm">
   <div class="container mx-auto flex h-[50px] items-center justify-between">
     <div>
       <div class="w-[150px] select-none">
@@ -14,7 +14,7 @@
             id="search-input"
             name="search"
             type="search"
-            class="h-[36px] w-full rounded-md border-transparent text-gray-700 shadow focus:border-transparent focus:ring-0"
+            class="h-[36px] w-full rounded-md border-transparent text-gray-700 shadow-sm focus:border-transparent focus:ring-0"
             placeholder="ค้นหา"
             autocomplete="off"
           />
@@ -47,7 +47,7 @@
     </div>
   </div>
   <div
-    class="mx-auto flex h-[38px] max-w-screen-xl items-center justify-around border-t-[1px] border-white border-opacity-25 bg-primary"
+    class="mx-auto flex h-[38px] max-w-(--breakpoint-xl) items-center justify-around border-t-[1px] border-white border-opacity-25 bg-primary"
   >
     <ul class="flex gap-3">
       <li class="list-none">
