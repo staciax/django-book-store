@@ -15,4 +15,4 @@ def page(request: HttpRequest, publisher_id: int) -> HttpResponse:
     context = {
         'publisher': publisher,
     }
-    return render(request, __file__, context)
+    return render(request, context)

@@ -24,4 +24,4 @@ def page(request: HttpRequest, address_id: int) -> HttpResponse:
             kwargs={'address_id': address.id},
         ),
     }
-    return render(request, __file__, context)
+    return render(request, context)

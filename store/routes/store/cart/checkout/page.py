@@ -41,4 +41,4 @@ def page(request: HttpRequest) -> HttpResponse:
         'shipping': shipping,
         'final_total': final_total,
     }
-    return render(request, __file__, context)
+    return render(request, context)

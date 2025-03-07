@@ -15,8 +15,7 @@ def page(request: HttpRequest) -> HttpResponse:
     if request.method == HTTPMethod.POST:
         return render(
             request,
-            __file__,
             {'user': request.user},
             filename='_components/edit-account.html',
         )
-    return render(request, __file__)
+    return render(request)

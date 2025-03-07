@@ -27,4 +27,4 @@ def page(request: HttpRequest) -> HttpResponse:
         'cart_items': cart_items,
         'total': sum(item.sub_total() for item in cart_items if item.product.quantity > 0),
     }
-    return render(request, __file__, context)
+    return render(request, context)

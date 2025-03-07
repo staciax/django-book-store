@@ -15,4 +15,4 @@ def page(request: HttpRequest) -> HttpResponse:
     context = {
         'orders': orders,
     }
-    return render(request, __file__, context)
+    return render(request, context)

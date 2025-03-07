@@ -19,7 +19,6 @@ def page(request: HttpRequest) -> HttpResponse:
         }
         return render(
             request,
-            __file__,
             context,
             filename='_components/search.html',
             metadata=Metadata(title=f'ค้นหา - {search}'),
@@ -29,4 +28,4 @@ def page(request: HttpRequest) -> HttpResponse:
         'recommended_products': products[:12],
     }
 
-    return render(request, __file__, context)
+    return render(request, context)

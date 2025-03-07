@@ -11,6 +11,8 @@ from typing import TYPE_CHECKING, Any, Callable, get_type_hints  # noqa: UP035
 from django.shortcuts import render as django_render
 from django.urls import path, resolve
 
+from ._get_frame import get_frame
+
 __all__ = (
     'AppRouter',
     'get_page_template',
@@ -205,7 +207,6 @@ def get_page_template(fp: str, *, filename: str = 'page.html') -> str:
 def render(
     request: HttpRequest,
     /,
-    module: str,
     context: dict[str, Any] | None = None,
     *,
     filename: str = 'page.html',
@@ -216,7 +217,14 @@ def render(
         context = {}
 
     # module = get_view_module_from_request_path(request.path)
-    template_name = get_page_template(module, filename=filename)
+    frame = get_frame(1)
+
+    # NOTE: trust me, it's not None
+    assert frame is not None
+
+    frame_path = Path(frame.f_code.co_filename)
+
+    template_name = get_page_template(frame_path, filename=filename)
     # meta = get_default_metadata(module)
 
     metadata = metadata or getattr(inspect.unwrap(resolve(request.path).func), '__meta__', None)

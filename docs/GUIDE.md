@@ -25,7 +25,7 @@ def page(request):
     """home"""
 
     context = {}
-    return render(request, __file__, context)
+    return render(request, context)
 ```
 
 ผลลัพธ์:
@@ -89,7 +89,7 @@ from store.core.routers import render
 
 def page(request):
     metadata = Metadata(title='นโยบายความเป็นส่วนตัว')
-    return render(request, __file__, metadata=metadata)
+    return render(request, metadata=metadata)
 ```
 
 หรือ
@@ -100,7 +100,7 @@ from store.metadata import metadata
 
 @metadata(title='นโยบายความเป็นส่วนตัว')
 def page(request):
-    return render(request, __file__)
+    return render(request)
 ```
 
 ผลลัพธ์ ในไฟล์ `page.html`:
@@ -130,7 +130,7 @@ def page(request, product_id):
     context = {
         'product': product,
     }
-    return render(request, __file__, context)
+    return render(request, context)
 ```
 
 ผลลัพธ์ ในไฟล์ `page.html`:

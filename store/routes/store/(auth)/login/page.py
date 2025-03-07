@@ -26,7 +26,7 @@ def page(request: HttpRequest) -> HttpResponse:
         form = LoginForm(request.POST)
 
         if not form.is_valid():
-            return render(request, __file__, context)
+            return render(request, context)
 
         user = auth.authenticate(
             request,
@@ -35,7 +35,7 @@ def page(request: HttpRequest) -> HttpResponse:
         )
 
         if user is None:
-            return render(request, __file__, context)
+            return render(request, context)
 
         auth.login(request, user)
 
@@ -46,4 +46,4 @@ def page(request: HttpRequest) -> HttpResponse:
 
         return redirect('store:home')
 
-    return render(request, __file__, context)
+    return render(request, context)

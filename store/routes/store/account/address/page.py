@@ -19,7 +19,6 @@ def page(request: HttpRequest) -> HttpResponse:
         metadata = Metadata(title='เพิ่มที่อยู่')
         return render(
             request,
-            __file__,
             {'form_action': reverse('store:create-address')},
             filename='_components/add-address.html',
             metadata=metadata,
@@ -31,4 +30,4 @@ def page(request: HttpRequest) -> HttpResponse:
         'addresses': addresses,
         'address_is_full': address_count >= 5,
     }
-    return render(request, __file__, context)
+    return render(request, context)
