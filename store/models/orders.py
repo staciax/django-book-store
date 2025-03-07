@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from decimal import Decimal
-from typing import TYPE_CHECKING, Any
+from typing import TYPE_CHECKING, Any, ClassVar
 
 from django.conf import settings
 from django.db import models
@@ -57,7 +57,7 @@ class Order(TimestampModel):
     def __str__(self) -> str:
         return f'{self.id} - {self.user}'
 
-    def get_absolute_url(self):
+    def get_absolute_url(self) -> str:
         return reverse('store:order-detail', kwargs={'order_id': self.id})
 
     def get_total(self) -> Decimal:
@@ -87,7 +87,7 @@ class OrderItem(TimestampModel):
         verbose_name_plural = 'order items'
 
         # https://docs.djangoproject.com/en/5.0/ref/models/options/#unique-together
-        constraints = [
+        constraints: ClassVar[list[models.BaseConstraint]] = [
             models.UniqueConstraint(
                 fields=('order', 'product'),
                 name='unique_order_item',

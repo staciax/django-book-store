@@ -27,7 +27,7 @@ class Payment(TimestampModel):
     method = models.CharField(max_length=128)
     paid_at = models.DateTimeField(null=True, blank=True)
     receipt = models.ImageField(
-        upload_to=get_receipt_path,  # pyright: ignore[reportArgumentType]
+        upload_to=get_receipt_path,  # type: ignore[arg-type]
         null=True,
         blank=True,
     )

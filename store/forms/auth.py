@@ -1,5 +1,3 @@
-from typing import Self
-
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 
@@ -31,11 +29,11 @@ class RegisterForm(UserCreationForm):
             'password2',
         )
 
-    def save(self, commit: bool = True) -> Self:
+    def save(self, commit: bool = True) -> User:
         user = super().save(commit=False)
         user.email = self.cleaned_data['email']
         user.first_name = self.cleaned_data['first_name']
         user.last_name = self.cleaned_data['last_name']
         if commit:
             user.save()
-        return user
+        return user  # type: ignore[no-any-return]

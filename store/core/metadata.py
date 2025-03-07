@@ -11,7 +11,7 @@ __all__ = (
 
 
 class Metadata:
-    def __init__(
+    def __init__(  # noqa: PLR0913
         self,
         *,
         title: str,
@@ -80,7 +80,7 @@ class Metadata:
         self.og_image_height = other.og_image_height
         return self
 
-    def _decorator(
+    def _decorator(  # noqa: PLR0913
         self,
         *,
         title: str,
@@ -96,7 +96,7 @@ class Metadata:
     ) -> Callable[..., Any]:
         def decorator(func: Callable[..., Any]) -> Callable[..., Any]:
             metadata = self.copy(self)
-            func.__meta__ = metadata.merge(
+            func.__meta__ = metadata.merge(  # type: ignore[attr-defined]
                 Metadata(
                     title=title,
                     shortcut_icon=shortcut_icon,
@@ -114,7 +114,7 @@ class Metadata:
 
         return decorator
 
-    def __call__(
+    def __call__(  # noqa: PLR0913
         self,
         *,
         title: str,
@@ -142,7 +142,7 @@ class Metadata:
         )
 
 
-def metadata(
+def metadata(  # noqa: PLR0913
     *,
     title: str,
     shortcut_icon: str | None = None,
@@ -156,7 +156,7 @@ def metadata(
     **kwargs: Any,
 ) -> Callable[..., Any]:
     def decorator(func: Callable[..., Any]) -> Callable[..., Any]:
-        func.__meta__ = Metadata(
+        func.__meta__ = Metadata(  # type: ignore[attr-defined]
             title=title,
             shortcut_icon=shortcut_icon,
             og_type=og_type,
@@ -174,7 +174,7 @@ def metadata(
 
 
 def set_global_metadata(metadata: Metadata) -> None:
-    global GLOBAL_METADATA
+    global GLOBAL_METADATA  # noqa: PLW0603
     GLOBAL_METADATA = metadata
 
 

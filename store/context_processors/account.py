@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from itertools import starmap
 from typing import TYPE_CHECKING, Any
 
 from django.urls import reverse
@@ -37,4 +38,4 @@ def account_navigator(request: HttpRequest) -> dict[str, Any]:
         },
     }
 
-    return {'store_account_navigator': [Navigator(key, value) for key, value in navigator.items()]}
+    return {'store_account_navigator': list(starmap(Navigator, navigator.items()))}

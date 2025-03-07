@@ -7,11 +7,11 @@ from django.urls import path
 from django.views.decorators.http import require_http_methods
 
 __all__ = (
+    'ViewRouter',
     'get',
     'post',
     'view',
     'view_router',
-    'ViewRouter',
 )
 
 if TYPE_CHECKING:
@@ -33,10 +33,10 @@ class ViewRouter:
         *,
         name: str | None = None,
     ) -> None:
-        url_pattern = path(pattern, handler, name=name)  # type: ignore[reportArgumentType]
+        url_pattern = path(pattern, handler, name=name or handler.__name__)
         self.routes.append(url_pattern)
 
-    def _decorator(
+    def _decorator(  # noqa: PLR0913
         self,
         methods: list[str] | None = None,
         pattern: str = '',
@@ -46,7 +46,7 @@ class ViewRouter:
         login_redirect_field_name: str = 'next',
         login_url: str | None = '/login',
     ) -> Callable[..., Any]:
-        def decorator(func: Callable[..., Any]):
+        def decorator(func: Callable[..., Any]) -> Callable[..., Any]:
             if methods is not None:
                 func = require_http_methods(methods)(func)
             if login_required:
@@ -95,7 +95,7 @@ class ViewRouter:
             login_url=login_url,
         )
 
-    def view(
+    def view(  # noqa: PLR0913
         self,
         pattern: str,
         methods: list[str] | None = None,

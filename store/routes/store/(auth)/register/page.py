@@ -21,7 +21,7 @@ def page(request: HttpRequest) -> HttpResponse:
         form = RegisterForm(request.POST)
         if form.is_valid():
             user = form.save()
-            auth_login(request, user)  # type: ignore
+            auth_login(request, user)
         return redirect('store:home')
 
     return render(request, __file__)

@@ -20,7 +20,7 @@ if TYPE_CHECKING:
     name='create-order',
     login_required=True,
 )
-def create_order(request: HttpRequest) -> HttpResponse:
+def create_order(request: HttpRequest) -> HttpResponse:  # noqa: PLR0911
     cart_items = Cart.objects.filter(
         user=request.user,
         product__quantity__gt=0,

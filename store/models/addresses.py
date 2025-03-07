@@ -29,7 +29,7 @@ class Address(TimestampModel):
         verbose_name = 'address'
         verbose_name_plural = 'addresses'
 
-    def get_absolute_url(self):
+    def get_absolute_url(self) -> str:
         return reverse('store:address-edit', kwargs={'address_id': self.id})
 
     def __str__(self) -> str:
