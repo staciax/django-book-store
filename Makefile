@@ -91,9 +91,9 @@ tailwind-dev: # Run tailwind in development mode
 tailwind-build: # Build tailwind in production mode
 	$(npm) run build
 
-.PHONY: check
-.SILENT: check
-check: # Ruff check 
+.PHONY: lint
+.SILENT: lint
+lint: # Ruff lint 
 	$(python) -m ruff check
 
 .PHONY: format
