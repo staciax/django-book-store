@@ -1,4 +1,10 @@
 {
+  // Mypy
+  "mypy.enabled": true,
+  "mypy.runUsingActiveInterpreter": true,
+  "mypy.configFile": "./pyproject.toml",
+  "mypy.extraArguments": ["--exclude", "page"],
+
   // Python
   "[python]": {
     "editor.formatOnSave": true,
