@@ -94,12 +94,14 @@ tailwind-build: # Build tailwind in production mode
 .PHONY: lint
 .SILENT: lint
 lint: # Ruff lint 
-	$(python) -m ruff check
+	$(python) -m mypy app store user --exclude page
+	$(python) -m ruff check app store user
 
 .PHONY: format
 .SILENT: format
 format: # Ruff format
-	$(python) -m ruff format
+	$(python) -m ruff check app store user --fix
+	$(python) -m ruff format app store user
 
 .PHONY: check-p
 .SILENT: check-p
