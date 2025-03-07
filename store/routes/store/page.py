@@ -22,7 +22,7 @@ def page(request: HttpRequest) -> HttpResponse:
             __file__,
             context,
             filename='_components/search.html',
-            metadata=Metadata(title='ค้นหา - %s' % search),
+            metadata=Metadata(title=f'ค้นหา - {search}'),
         )
 
     context = {
