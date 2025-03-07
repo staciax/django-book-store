@@ -1,22 +1,22 @@
-# คู่มือการใช้งาน
+# User Guide
 
-## การสร้าง route
+## Creating routes
 
-ต้องสร้างไฟล์ `page.py` ในโฟลเดอร์ `routers` หรือ `routers/<app_name>`:
+You need to create a `page.py` file in the `routes` or `routes/<app_name>` folder:
 
-จากนั่นสร้างฟังก์ชัน `page` ในไฟล์ `page.py` ดังนี้:
+Then create a `page` function in the `page.py` file as follows:
 
 ```python
 from django.shortcuts import render
 
 def page(request):
     """home"""
-    # document สำหรับกำหนดชื่อ path
+    # document for defining the path name
 
-    return render(request, 'page.html')
+    return render(request)
 ```
 
-หรือ
+Or
 
 ```python
 from store.core.routers import render
@@ -28,28 +28,28 @@ def page(request):
     return render(request, context)
 ```
 
-ผลลัพธ์:
+Result:
 
 ```python
 path('', page, name='home')
 ```
 
-### การสร้าง route ที่มี parameter
+### Creating routes with parameters
 
-| Route                           | Example URL | params        |
-| ------------------------------- | ----------- | ------------- |
-| `routers/page.py`               | `/`         | `{}`          |
-| `routers/info/page.py`          | `/info/`    | `{}`          |
-| `routers/(group)/about/page.py` | `/about/`   | `{}`          |
-| `routers/user/[slug]/page.py`   | `/user/1/`  | `{'slug': 1}` |
+| Route                                | Example URL | params        |
+| ------------------------------------ | ----------- | ------------- |
+| `[app]/routes/page.py`               | `/`         | `{}`          |
+| `[app]/routes/info/page.py`          | `/info/`    | `{}`          |
+| `[app]/routes/(group)/about/page.py` | `/about/`   | `{}`          |
+| `[app]/routes/user/[slug]/page.py`   | `/user/1/`  | `{'slug': 1}` |
 
-### ตัวอย่างโครงสร้างโฟลเดอร์
+### Example folder structure
 
 ```
 myapp
 ├── migrations
 │   └── __init__.py
-├── routers
+├── routes
 │   ├── (auth)
 │   │   ├── login
 │   │   │   ├── page.html
@@ -75,41 +75,41 @@ myapp
 └── views.py
 ```
 
-ปล. ได้รับแรงบันดาลใจจาก **[Next.js App Router](https://nextjs.org/docs/app)**
+Note: Inspired by **[Next.js App Router](https://nextjs.org/docs/app)**
 
-## การกำหนด Metadata
+## Configuring Metadata
 
-จำเป็นต้องใช้ render ของ `store.core.routers` แทน `django.shortcuts.render` เพื่อใช้งาน metadata ได้
+You need to use `store.core.routers` render instead of `django.shortcuts.render` to use metadata.
 
-ตัวอย่างการใช้งาน metadata:
+Example of using metadata:
 
 ```python
 from store.core.metadata import Metadata
 from store.core.routers import render
 
 def page(request):
-    metadata = Metadata(title='นโยบายความเป็นส่วนตัว')
+    metadata = Metadata(title='Privacy Policy')
     return render(request, metadata=metadata)
 ```
 
-หรือ
+Or
 
 ```python
 from store.core.routers import render
 from store.metadata import metadata
 
-@metadata(title='นโยบายความเป็นส่วนตัว')
+@metadata(title='Privacy Policy')
 def page(request):
     return render(request)
 ```
 
-ผลลัพธ์ ในไฟล์ `page.html`:
+Result in `page.html`:
 
 ```html
-<title>นโยบายความเป็นส่วนตัว</title>
+<title>Privacy Policy</title>
 ```
 
-ตัวอย่างการใช้งาน metadata แบบมี string format และ ต้องส่งค่าเข้าผ่าน context
+Example of using metadata with string formatting that requires values passed through context:
 
 ```python
 from store.core.routers import render
@@ -133,7 +133,7 @@ def page(request, product_id):
     return render(request, context)
 ```
 
-ผลลัพธ์ ในไฟล์ `page.html`:
+Result in `page.html`:
 
 ```html
 <title>Suzume</title>

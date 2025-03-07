@@ -1,27 +1,27 @@
-## ร้านหนังสือนิยาย อนิเมะ และ การ์ตูน
+## Novel, Anime, and Comic Book Store
 
-โปรเจค วิชา เว็ปโปรแกรมมิ่ง มีโจทย์ให้ทำเป็นเว็ปไซต์อะไรก็ได้ และ ใช้ต้้องเฟรมเวิร์ค Django ในการทำโปรเจค
-เราได้ทำเป็นเว็ปไซต์ขายหนังสือนิยาย อนิเมะ และ การ์ตูน
+This is a Web Programming course project with the assignment to create any kind of website using the Django framework.
+I developed a website for selling novels, anime, and comics.
 
-> โปรเจคนี้ทำส่งวิชาเว็ปโปรแกรมมิ่งเท่านั่น ไม่ได้นำไปใช้จริงแต่อย่างใด
+<!-- > This project is only for the Web Programming course submission and is not intended for actual use. -->
 
-## ภาพตัวอย่าง
+## Preview Images
 
 ![site-preview](https://imgur.com/QqAhfNh.png)
 
 <details>
-  <summary>แสดงเพิ่มเติม</summary>
+  <summary>Show more</summary>
   <img src="https://imgur.com/3L6mhtK.png" alt="site-preview-2">
   <img src="https://imgur.com/7CNWtQl.png" alt="site-preview-3">
 </details>
 
-## ฟีเจอร์
+## Features
 
-- [x] สมาชิก
-- [x] ค้นหาสินค้า
-- [x] ตะกร้าสินค้า
-- [x] ชำระเงิน
-- [x] ประวัติการสั่งซื้อ
+- [x] Membership
+- [x] Product Search
+- [x] Shopping Cart
+- [x] Payment
+- [x] Order History
 
 ## Requirements
 
@@ -30,14 +30,19 @@
 
 ## Environment Variables
 
-สร้างไฟล์ .env ในโปรเจค และเพิ่ม Environment Variables ดังนี้
+Create a .env file in the project and add the following Environment Variables:
 
 ```py
+# django
 DJANGO_SECRET_KEY='secret'
 DJANGO_DEBUG='True'
 DJANGO_ALLOWED_HOSTS='*'
 DJANGO_CSRF_TRUSTED_ORIGINS='http://, https://'
+
+# payment
 PROMPTPAY_ID='0987654321'
+
+# postgres
 POSTGRES_DB='database'
 POSTGRES_USER='username'
 POSTGRES_PASSWORD='password'
@@ -47,28 +52,29 @@ POSTGRES_PORT='5432'
 
 ## Setup
 
-1. สร้าง Virtual Environment
+1. Create a Virtual Environment using uv
 
 ```bash
-python3 -m venv .venv
+uv venv
 ```
 
-2. ติดตั้ง Package ที่จำเป็นสำหรับโปรเจค
+2. Install necessary packages for the project
 
 ```bash
-# python package
-make install
-# node package
-make node-install
+# python package with uv
+uv sync
+
+# node package (for tailwindcss, linting, formatting, etc.)
+npm install
 ```
 
-3. เซ็ตอัพโปรเจค
+3. Setup the project
 
 ```bash
 make setup
 ```
 
-4. รันโปรเจค
+4. Run the project
 
 ```bash
 make run
@@ -76,22 +82,75 @@ make run
 
 ## Setup for Development
 
-1. ติดตั้ง Package ที่จำเป็นสำหรับโปรเจค
-
-```bash
-make dev-install
-```
-
-2. รันโปรเจค
+1. Run the project
 
 ```bash
 make run
 ```
 
-3. รัน tailwindcss ในโหมด watch
+2. Run tailwindcss in watch mode
 
 ```bash
-make tailwind-dev
+npm run dev
+```
+
+## Router (Like Next.js App Router)
+
+for example, define a route with the file `page.py` in the `[app]/routes` folder:
+
+```python
+from django.shortcuts import render
+
+def page(request):
+    """home"""
+    # You can also name the page
+    # path(..., ..., name='home')
+
+    context = {
+        'x': 1,
+    }
+
+    return render(request, context)
+```
+
+| Route                                | Example URL | params        |
+| ------------------------------------ | ----------- | ------------- |
+| `[app]/routes/page.py`               | `/`         | `{}`          |
+| `[app]/routes/info/page.py`          | `/info/`    | `{}`          |
+| `[app]/routes/(group)/about/page.py` | `/about/`   | `{}`          |
+| `[app]/routes/user/[slug]/page.py`   | `/user/1/`  | `{'slug': 1}` |
+
+### Example folder structure
+
+```
+[app]
+├── migrations
+│   └── __init__.py
+├── routes
+│   ├── (auth)
+│   │   ├── login
+│   │   │   ├── page.html
+│   │   │   └── page.py
+│   │   └── register
+│   │       ├── page.html
+│   │       └── page.py
+│   ├── info
+│   │   └── page.html
+│   │   └── page.py
+│   ├── user
+│   │   └── [user_id]
+│   │       ├── page.html
+│   │       └── page.py
+│   ├── layout.html
+│   ├── page.html
+│   └── page.py
+├── __init__.py
+├── admin.py
+├── apps.py
+├── models.py
+├── tests.py
+├── urls.py
+└── views.py
 ```
 
 <!-- TODO: windows setup -->
@@ -99,13 +158,13 @@ make tailwind-dev
 
 <!-- ## Docker and Docker Compose
 
-เริ่มต้นด้วย
+Start with
 
 ```bash
 make docker-setup
 ``` -->
 
-## เว็ปไซต์ที่ใช้เป็นแรงบันดาลใจ
+## Inspiration Websites
 
 - [Phoenix Next](https://www.phoenixnext.com) :heart:
 - [Animate BKK](https://animatebkk-online.com)
