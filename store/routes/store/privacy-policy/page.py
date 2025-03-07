@@ -9,4 +9,4 @@ from store.metadata import metadata
 def page(request: HttpRequest) -> HttpResponse:
     """privacy-policy"""
     context = {}
-    return render(request, __file__, context)
+    return render(request, context)

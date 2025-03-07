@@ -24,4 +24,4 @@ def page(request: HttpRequest) -> HttpResponse:
             auth_login(request, user)
         return redirect('store:home')
 
-    return render(request, __file__)
+    return render(request)

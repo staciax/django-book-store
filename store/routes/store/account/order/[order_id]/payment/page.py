@@ -30,4 +30,4 @@ def page(request: HttpRequest, order_id: int) -> HttpResponse:
         'final_total': final_total,
     }
 
-    return render(request, __file__, context)
+    return render(request, context)

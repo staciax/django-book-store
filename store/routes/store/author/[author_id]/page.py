@@ -16,4 +16,4 @@ def page(request: HttpRequest, author_id: int) -> HttpResponse:
         'author': author,
     }
 
-    return render(request, __file__, context)
+    return render(request, context)

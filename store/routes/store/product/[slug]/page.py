@@ -18,4 +18,4 @@ def page(request: HttpRequest, slug: str) -> HttpResponse:
     context = {
         'product': product,
     }
-    return render(request, __file__, context)
+    return render(request, context)

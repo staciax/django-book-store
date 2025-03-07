@@ -16,4 +16,4 @@ def page(request: HttpRequest, tag_id: int) -> HttpResponse:
         'tag': tag,
     }
 
-    return render(request, __file__, context)
+    return render(request, context)

@@ -16,4 +16,4 @@ def page(request: HttpRequest, genre_id: int) -> HttpResponse:
         'genre': genre,
     }
 
-    return render(request, __file__, context)
+    return render(request, context)
