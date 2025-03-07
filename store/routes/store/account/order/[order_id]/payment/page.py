@@ -17,7 +17,7 @@ def page(request: HttpRequest, order_id: int) -> HttpResponse:
     """order-payment"""
     try:
         order = Order.objects.get(id=order_id, user=request.user)
-    except Order.DoesNotExist:
+    except Order.DoesNotExist:  # noqa: TRY203
         raise
 
     shipping = Decimal(50)

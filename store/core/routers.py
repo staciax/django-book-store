@@ -75,7 +75,7 @@ def import_module_from_path(fp: Path) -> ModuleType:
 
 class BaseRouter(ABC):
     def __init__(self) -> None:
-        self.app_router_paths = []
+        self.app_router_paths: list[Path] = []
 
     def include_app(self, app_name: str, /, *, app_dir: bool = True) -> None:
         """
@@ -165,7 +165,7 @@ def get_page_template(fp: str, *, filename: str = 'page.html') -> str:
 
     routes = Path()
     for segment in template_path.parts:
-        routes = routes / segment
+        routes /= segment
         if segment == 'routes':
             break
 
@@ -230,7 +230,7 @@ def render(
 
         context['metadata'] = metadata.to_html()
     else:
-        from .metadata import GLOBAL_METADATA
+        from .metadata import GLOBAL_METADATA  # noqa: PLC0415
 
         if GLOBAL_METADATA:
             context['metadata'] = GLOBAL_METADATA.to_html()

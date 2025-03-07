@@ -47,13 +47,13 @@ class User(AbstractBaseUser, PermissionsMixin):
         default='',
         blank=True,
     )
-    created_at = models.DateTimeField(auto_now_add=True, db_default=Now())  # type: ignore[call-arg]
-    updated_at = models.DateTimeField(auto_now=True, db_default=Now())  # type: ignore[call-arg]
+    created_at = models.DateTimeField(auto_now_add=True, db_default=Now())
+    updated_at = models.DateTimeField(auto_now=True, db_default=Now())
 
-    objects: ClassVar[CustomUserManager[Self]] = CustomUserManager()
+    objects: ClassVar[CustomUserManager[Self]] = CustomUserManager()  # type: ignore[assignment]
 
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = []
+    REQUIRED_FIELDS = []  # noqa: RUF012
 
     def __str__(self) -> str:
         return self.email

@@ -1,5 +1,5 @@
 from decimal import Decimal
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, ClassVar
 
 from django.conf import settings
 from django.db import models
@@ -30,7 +30,7 @@ class Cart(TimestampModel):
         verbose_name = 'cart'
         verbose_name_plural = 'carts'
 
-        constraints = [
+        constraints: ClassVar[list[models.BaseConstraint]] = [
             models.UniqueConstraint(
                 fields=('user', 'product'),
                 name='unique_cart_item',

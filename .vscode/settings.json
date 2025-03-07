@@ -1,4 +1,13 @@
 {
+  // Mypy
+  "mypy.enabled": true,
+  "mypy.runUsingActiveInterpreter": true,
+  "mypy.configFile": "./pyproject.toml",
+  "mypy.extraArguments": ["--exclude", "page"],
+
+  // Prettier
+  "prettier.configPath": "prettier.config.mjs",
+
   // Python
   "[python]": {
     "editor.formatOnSave": true,

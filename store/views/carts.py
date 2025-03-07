@@ -20,8 +20,8 @@ if TYPE_CHECKING:
 def add_product_to_cart(request: HttpRequest, product_id: int, quantity: int) -> HttpResponse:
     try:
         product = Product.objects.get(id=product_id)
-    except Product.DoesNotExist as e:
-        raise e
+    except Product.DoesNotExist:  # noqa: TRY203
+        raise
     else:
         # if product.quantity <= 0:
         #     raise
@@ -32,20 +32,18 @@ def add_product_to_cart(request: HttpRequest, product_id: int, quantity: int) ->
         try:
             cart_item = Cart.objects.get(product=product, user=request.user)
             new_quantity = cart_item.quantity + quantity
-            if product.quantity <= new_quantity:
-                new_quantity = product.quantity
-            cart_item.quantity = 10 if new_quantity > 10 else new_quantity
+            new_quantity = min(product.quantity, new_quantity)
+            cart_item.quantity = min(new_quantity, 10)
             cart_item.save()
         except Cart.DoesNotExist:
             # carts = Cart.objects.filter(user=request.user)
             # if carts.count() >= 10:
             #     return redirect('store:cart')
-            if product.quantity <= quantity:
-                quantity = product.quantity
+            quantity = min(product.quantity, quantity)
             cart_item = Cart.objects.create(
                 user=request.user,
                 product=product,
-                quantity=quantity if quantity <= 10 else 10,
+                quantity=min(quantity, 10),
             )
             cart_item.save()
 
@@ -71,9 +69,8 @@ def add_to_cart(request: HttpRequest, cart_id: int) -> HttpResponse:
     try:
         cart_item = Cart.objects.get(id=cart_id, user=request.user)
         new_quantity = cart_item.quantity + 1
-        if cart_item.product.quantity <= new_quantity:
-            new_quantity = cart_item.product.quantity
-        cart_item.quantity = 10 if new_quantity > 10 else new_quantity
+        new_quantity = min(cart_item.product.quantity, new_quantity)
+        cart_item.quantity = min(new_quantity, 10)
         cart_item.save()
     except Cart.DoesNotExist:
         pass
@@ -92,8 +89,7 @@ def subtract_from_cart(request: HttpRequest, cart_id: int) -> HttpResponse:
         new_quantity = cart_item.quantity - 1
         if new_quantity <= 0:
             new_quantity = 1
-        if cart_item.product.quantity <= new_quantity:
-            new_quantity = cart_item.product.quantity
+        new_quantity = min(cart_item.product.quantity, new_quantity)
         cart_item.quantity = new_quantity
         cart_item.save()
     except Cart.DoesNotExist:

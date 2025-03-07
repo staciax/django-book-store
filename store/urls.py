@@ -1,4 +1,4 @@
-from . import views as views
+# from . import views as views
 from store.core.routers import AppRouter
 from store.core.views import view_router
 

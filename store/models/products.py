@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Any
+from typing import TYPE_CHECKING, Any, ClassVar
 
 from django.db import models
 from django.urls import reverse
@@ -63,7 +63,7 @@ class Product(TimestampModel):
         verbose_name = 'product'
         verbose_name_plural = 'products'
 
-        constraints = [
+        constraints: ClassVar[list[models.BaseConstraint]] = [
             models.CheckConstraint(
                 check=models.Q(price__gte=0),
                 name='product_price_gte_0',
@@ -121,7 +121,7 @@ class ProductImage(TimestampModel):
         related_name='images',
     )
     image = models.ImageField(
-        upload_to=get_product_image_path,  # pyright: ignore[reportArgumentType]
+        upload_to=get_product_image_path,  # type: ignore[arg-type]
         blank=True,
         default='',
     )
@@ -158,7 +158,7 @@ class ProductAuthor(BaseModel):
         verbose_name = 'product author'
         verbose_name_plural = 'product authors'
 
-        constraints = [
+        constraints: ClassVar[list[models.BaseConstraint]] = [
             models.UniqueConstraint(
                 fields=('product', 'author'),
                 name='unique_product_author',
@@ -180,7 +180,7 @@ class ProductTagging(BaseModel):
         verbose_name = 'product tagging'
         verbose_name_plural = 'product taggings'
 
-        constraints = [
+        constraints: ClassVar[list[models.BaseConstraint]] = [
             models.UniqueConstraint(
                 fields=('product', 'tag'),
                 name='unique_product_tag',

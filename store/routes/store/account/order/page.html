@@ -14,7 +14,7 @@
 <!--  -->
 {% for order in orders %}
 <div class="min-h-[400px] w-full">
-  <div class="flex flex-col rounded border border-solid border-gray-300">
+  <div class="flex flex-col rounded-sm border border-solid border-gray-300">
     <div class="flex justify-between px-4 py-2">
       <div class="flex flex-col">
         <h3 class="text-base font-light">คำสั่งซื้อ #{{order.id}}</h3>
@@ -28,7 +28,7 @@
         <div>
           <a href="{{order.get_absolute_url}}">
             <button
-              class="rounded-lg bg-primary p-2 text-sm font-light text-white transition duration-200 hover:bg-tertiary hover:shadow"
+              class="rounded-lg bg-primary p-2 text-sm font-light text-white transition duration-200 hover:bg-tertiary hover:shadow-sm"
             >
               รายละเอียด
             </button>
@@ -45,7 +45,7 @@
             <td class="w-16 py-2">
               <a href="{{item.product.get_absolute_url}}" class="font-light hover:underline" target="_blank">
                 <img
-                  class="mx-auto rounded transition duration-300 hover:opacity-85 hover:shadow-md"
+                  class="mx-auto rounded-sm transition duration-300 hover:opacity-85 hover:shadow-md"
                   src="{% get_media_prefix %}{{item.product.first_image}}"
                   alt=""
                   width=""

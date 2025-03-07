@@ -1,5 +1,9 @@
-/** @type {import('tailwindcss').Config} */
-module.exports = {
+import forms from '@tailwindcss/forms';
+import typography from '@tailwindcss/typography';
+// import aspectRatio from '@tailwindcss/aspect-ratio';
+
+// /** @type {import('tailwindcss').Config} */
+export default {
   content: [
     // (BASE_DIR/templates)
     './templates/**/*.html',
@@ -33,9 +37,5 @@ module.exports = {
       },
     },
   },
-  plugins: [
-    require('@tailwindcss/forms'),
-    require('@tailwindcss/typography'),
-    // require('@tailwindcss/aspect-ratio'),
-  ],
+  plugins: [forms, typography],
 };

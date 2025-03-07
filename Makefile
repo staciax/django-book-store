@@ -17,21 +17,6 @@ help:
 run: 
 	$(python) manage.py runserver
 
-.PHONY: install
-.SILENT: install
-install: # Install requirements
-	$(pip) install -r requirements.txt
-
-.PHONY: node-install
-.SILENT: node-install
-node-install: # Install node modules
-	$(npm) install
-
-.PHONY: dev-install
-.SILENT: dev-install
-dev-install: # Install dev requirements
-	$(pip) install -r requirements-dev.txt
-
 .PHONY: setup
 .SILENT: setup
 setup: # Setup the project (collect static files, migrate the database)
@@ -91,15 +76,17 @@ tailwind-dev: # Run tailwind in development mode
 tailwind-build: # Build tailwind in production mode
 	$(npm) run build
 
-.PHONY: check
-.SILENT: check
-check: # Ruff check 
-	$(python) -m ruff check
+.PHONY: lint
+.SILENT: lint
+lint: # Ruff lint 
+	$(python) -m mypy app store user --exclude page
+	$(python) -m ruff check app store user
 
 .PHONY: format
 .SILENT: format
 format: # Ruff format
-	$(python) -m ruff format
+	$(python) -m ruff check app store user --fix
+	$(python) -m ruff format app store user
 
 .PHONY: check-p
 .SILENT: check-p

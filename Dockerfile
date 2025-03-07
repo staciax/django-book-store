@@ -1,26 +1,35 @@
-FROM python:3.12-slim
+ARG PYTHON_VERSION=3.12
+FROM ghcr.io/astral-sh/uv:python${PYTHON_VERSION}-bookworm-slim AS builder
+ENV UV_COMPILE_BYTECODE=1 UV_LINK_MODE=copy
 
-ENV PYTHONDONTWRITEBYTECODE=1
-ENV PYTHONUNBUFFERED=1
-
-RUN apt-get update \
-    && apt-get upgrade -y \ 
-    && apt-get install -y netcat-traditional \
-    && apt-get clean
+ENV UV_PYTHON_DOWNLOADS=0
 
 WORKDIR /app
 
-COPY ./requirements.txt /app/requirements.txt
+RUN --mount=type=cache,target=/root/.cache/uv \
+    --mount=type=bind,source=uv.lock,target=uv.lock \
+    --mount=type=bind,source=pyproject.toml,target=pyproject.toml \
+    uv sync --frozen --no-install-project --no-dev
 
-RUN pip install -U pip && \
-    pip install --no-cache-dir -r /app/requirements.txt
+ADD . /app
 
-COPY ./entrypoint.sh .
-RUN sed -i 's/\r$//g' ./entrypoint.sh
-RUN chmod +x ./entrypoint.sh
+RUN --mount=type=cache,target=/root/.cache/uv \
+    uv sync --frozen --no-dev
 
-COPY . .
+FROM python:${PYTHON_VERSION}-slim-bookworm
+
+WORKDIR /app
+
+ENV PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONUNBUFFERED=1
+    
+COPY --from=builder --chown=app:app /app /app
+COPY --from=busybox:stable --chown=app:app /bin/nc /bin/nc
+
+ENV PATH="/app/.venv/bin:$PATH"
+
+ENTRYPOINT ["./entrypoint.sh"]
 
 EXPOSE 8000
 
-ENTRYPOINT ["./entrypoint.sh"]
+CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]

@@ -14,7 +14,7 @@ def page(request: HttpRequest, address_id: int) -> HttpResponse:
     """address-edit"""
     try:
         address = Address.objects.get(id=address_id, user=request.user)
-    except Address.DoesNotExist:
+    except Address.DoesNotExist:  # noqa: TRY203
         raise
 
     context = {

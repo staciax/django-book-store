@@ -11,8 +11,9 @@ class StoreConfig(AppConfig):
     verbose_name = 'store'
 
     def ready(self) -> None:
-        from .core.metadata import set_global_metadata
-        from .metadata import metadata
+        # NOTE: avoid circular import
+        from .core.metadata import set_global_metadata  # noqa: PLC0415
+        from .metadata import metadata  # noqa: PLC0415
 
         set_global_metadata(metadata)
         log.info('store app ready')

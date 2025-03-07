@@ -4,7 +4,7 @@
 <!--  -->
 {% load store %}
 <!--  -->
-<div class="rounded-md border p-4 shadow">
+<div class="rounded-md border p-4 shadow-sm">
   <div class="mt-2">
     <p class="text-xl">สรุปรายการสั่งซื้อ</p>
   </div>
@@ -17,7 +17,7 @@
           <img
             src="{% get_media_prefix %}{{item.product.first_image}}"
             alt=""
-            class="mx-auto rounded transition duration-300 hover:opacity-85 hover:shadow-md"
+            class="mx-auto rounded-sm transition duration-300 hover:opacity-85 hover:shadow-md"
           />
         </a>
       </div>
