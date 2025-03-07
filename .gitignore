@@ -1,8 +1,17 @@
+# Python
 __pycache__/
-dist/
+
+# Environments
 .env
-.venv/
-node_modules
+.venv
+
+# MacOS
+.DS_Store
+
+# Django
 media/
 /static/
-.DS_Store
+
+# Node
+dist/
+node_modules/
