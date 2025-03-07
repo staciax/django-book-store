@@ -20,27 +20,22 @@ dev = [
   "django-types==0.20.0",
 ]
 
-[tool.pyright]
-include = ["app", "user", "store"]
+[tool.mypy]
+strict = true
+python_version = "3.12"
 exclude = [
-  "**/__pycache__",
-  ".git",
-  ".ruff_cache",
   ".venv",
   ".vscode",
   "dist",
   "media",
   "static",
   "node_modules",
-  "**/migrations",
+  "migrations",
 ]
-pythonVersion = "3.12"
-typeCheckingMode = "basic"
-reportUnusedImport = "error"
-reportUnnecessaryTypeIgnoreComment = "warning"
-reportMissingParameterType = "error"
-reportMissingTypeArgument = "error"
-reportUnusedVariable = "warning"
+
+[[tool.mypy.overrides]]
+module = "environ.*"
+ignore_missing_imports = true
 
 [tool.ruff]
 line-length = 120
@@ -67,16 +62,30 @@ line-ending = "auto"
 [tool.ruff.lint]
 preview = true
 select = [
-  "E",   # pycodestyle errors
-  "W",   # pycodestyle warnings
-  "F",   # pyflakes
-  "I",   # isort
-  "UP",  # pyupgrade,
-  "B",   # flake8-bugbear
-  "C4",  # flake8-comprehensions
+  "E",  # pycodestyle errors
+  "W",  # pycodestyle warnings
+  "F",  # pyflakes
+  "I",  # isort
+  "UP", # pyupgrade,
+  "B",  # flake8-bugbear
+  "C4", # flake8-comprehensions
   "TC", # flake8-type-checking
-  "FA",  # flake8-future-annotations
-  "DJ",  # flake8-django
+  "FA", # flake8-future-annotations
+  "DJ", # flake8-django
+
+  "PGH",  # pygrep-hooks
+  "PL",   # pylint
+  "TRY",  # tryceratops
+  "PERF", # perflint
+  "FURB", # refurb
+
+  "RUF", # ruff-specific rules
+]
+ignore = [
+  "PLR6301", # no-self-use
+  "PLR2004", # magic-value-comparison
+  "TRY003",  # raise-vanilla-args
+  # noqa: PLR0911
 ]
 
 [tool.ruff.lint.isort]
