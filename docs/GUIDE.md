@@ -12,8 +12,8 @@ from django.shortcuts import render
 def page(request):
     """home"""
     # document for defining the path name
-
-    return render(request)
+    
+    return render(request, 'page.html')
 ```
 
 Or
@@ -25,6 +25,9 @@ def page(request):
     """home"""
 
     context = {}
+
+    # template name is auto detected
+    # it will look for page.html in the same directory as page.py
     return render(request, context)
 ```
 

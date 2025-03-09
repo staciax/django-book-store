@@ -106,10 +106,19 @@ def page(request):
     # You can also name the page
     # path(..., ..., name='home')
 
-    context = {
-        'x': 1,
-    }
+    context = {}
+    return render(request, 'page.html')
+```
+Or
+```python
+from store.core.routers import render
 
+def page(request):
+    """home"""
+
+    context = {}
+    # template name is auto detected
+    # it will look for page.html in the same directory as page.py
     return render(request, context)
 ```
 
@@ -127,23 +136,23 @@ def page(request):
 ├── migrations
 │   └── __init__.py
 ├── routes
-│   ├── (auth)
-│   │   ├── login
-│   │   │   ├── page.html
-│   │   │   └── page.py
-│   │   └── register
+│   ├── (auth)              # group
+│   │   ├── login           
+│   │   │   ├── page.html   # template
+│   │   │   └── page.py     # route
+│   │   └── register       
 │   │       ├── page.html
 │   │       └── page.py
 │   ├── info
 │   │   └── page.html
 │   │   └── page.py
 │   ├── user
-│   │   └── [user_id]
+│   │   └── [user_id]      # with parameter
 │   │       ├── page.html
 │   │       └── page.py
-│   ├── layout.html
-│   ├── page.html
-│   └── page.py
+│   ├── layout.html        # base layout
+│   ├── page.html          # template
+│   └── page.py            # route
 ├── __init__.py
 ├── admin.py
 ├── apps.py
