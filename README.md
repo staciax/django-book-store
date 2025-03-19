@@ -1,9 +1,9 @@
-## Novel, Anime, and Comic Book Store
+## Novel, Anime, and Comic Book Store Written in Django
 
-This is a Web Programming course project with the assignment to create any kind of website using the Django framework.
-I developed a website for selling novels, anime, and comics.
+This is a project for my university Web Programming course, where I was assigned to develop a website using the Django framework.
+I created an e-commerce platform for novels, anime, and comic books.
 
-<!-- > This project is only for the Web Programming course submission and is not intended for actual use. -->
+> **Note:** This project is purely academic and created for university coursework. All preview images showing copyrighted content are used solely for educational demonstration.
 
 ## Preview Images
 
@@ -96,7 +96,7 @@ npm run dev
 
 ## Router (Like Next.js App Router)
 
-for example, define a route with the file `page.py` in the `[app]/routes` folder:
+For example, define a route with the file `page.py` in the `[app]/routes` folder:
 
 ```python
 from django.shortcuts import render
@@ -109,7 +109,9 @@ def page(request):
     context = {}
     return render(request, 'page.html')
 ```
+
 Or
+
 ```python
 from store.core.routers import render
 
@@ -137,10 +139,10 @@ def page(request):
 │   └── __init__.py
 ├── routes
 │   ├── (auth)              # group
-│   │   ├── login           
+│   │   ├── login
 │   │   │   ├── page.html   # template
 │   │   │   └── page.py     # route
-│   │   └── register       
+│   │   └── register
 │   │       ├── page.html
 │   │       └── page.py
 │   ├── info
